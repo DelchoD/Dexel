@@ -1,4 +1,8 @@
 # Dexel - a simple application for comma-separated values spreadsheets
+## Track process at Jira : https://delcho.atlassian.net/jira/software/projects/SPREAD/boards/1/roadmap
+* Username: dexeljira@mailinator.com
+* Password: 123456view
+
 ## Presentation of data
 The data of a table will be saved to a text file (in CSV format) as follows:
 
