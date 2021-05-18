@@ -11,6 +11,6 @@ public:
 	Cell& operator=(Cell& rhs);
 
 	virtual void print(int width) const;
-	virtual Cell* copyCell() const = 0;
+	virtual Cell* copyCell() = 0;
 };
 
