@@ -6,9 +6,11 @@
 class Row
 {
 private:
-	std::vector<std::shared_ptr<Cell>> cellsPerRow;
+	std::vector<Cell*> cellsPerRow;
+	bool readRow(std::string source, std::string buffer,int* length);
 public:
 	Row();
+	Row(std::string rowValue);
 	Row(const Row& rhs);
 	Row& operator=(const Row& rhs);
 	~Row();
@@ -16,6 +18,6 @@ public:
 	void print();
 	int getNumberOfCellsPerRow();
 	void setCell(int columnIndex, const std::string _cellEditedContent);
-	std::shared_ptr<Cell> getCell(int columnIndex);
+	Cell* getCell(int columnIndex);
 };
 

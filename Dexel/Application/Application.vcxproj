@@ -140,9 +140,23 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Cell.h" />
+    <ClInclude Include="CellUtils.h" />
+    <ClInclude Include="Commands.h" />
+    <ClInclude Include="DoubleCell.h" />
+    <ClInclude Include="GeneralUtils.h" />
+    <ClInclude Include="IntCell.h" />
+    <ClInclude Include="Row.h" />
+    <ClInclude Include="StringCell.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cell.cpp" />
+    <ClCompile Include="CellUtils.cpp" />
+    <ClCompile Include="Commands.cpp" />
+    <ClCompile Include="DoubleCell.cpp" />
+    <ClCompile Include="IntCell.cpp" />
+    <ClCompile Include="Row.cpp" />
+    <ClCompile Include="Source.cpp" />
+    <ClCompile Include="StringCell.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
