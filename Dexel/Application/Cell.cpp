@@ -1,35 +1,22 @@
 #include "Cell.h"
-#include <iostream>
-#include <algorithm>
-Cell::Cell(int _rowIndexconst, int _columnIndex, std::string _cellContent):rowIndex(_rowIndexconst), columnIndex(_columnIndex),cellContent(_cellContent)
-{
+#include<iostream>
+#include <iomanip>
+Cell::Cell():cellContent("") {
 }
 
-Cell::Cell(const Cell& rhs)
-{
-		rowIndex = rhs.rowIndex;
-		columnIndex = rhs.columnIndex;
-		cellContent = rhs.cellContent;
+Cell::Cell(std::string _cellContent) : cellContent(_cellContent) {
 }
 
-Cell& Cell::operator=(Cell& rhs)//strong exeption gurantee
+Cell::Cell(const Cell& rhs) : cellContent(rhs.cellContent) {
+}
+
+Cell& Cell::operator=(Cell& rhs)
 {
-	std::swap(rowIndex, rhs.rowIndex);
-	std::swap(columnIndex, rhs.columnIndex);
 	std::swap(cellContent, rhs.cellContent);
+	return *this;
 }
 
-int Cell::getColumnIndex() const
+void Cell::print(int width) const
 {
-	return columnIndex;
-}
-
-int Cell::getRowIndex() const
-{
-	return rowIndex;
-}
-
-std::string Cell::getCellContent() const
-{
-	return cellContent;
+	std::cout << std::setw(width) << cellContent;
 }
