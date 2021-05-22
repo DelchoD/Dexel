@@ -3,18 +3,16 @@
 #include <string>
 #include <algorithm>
 
-void Commands::open(const std::string fileLocation)
+bool Commands::open(const std::string fileLocation)
 {
 	activeFile.open(fileLocation);
 	if (activeFile.fail())
 	{
 		std::cerr << "There is a problem in opening the file, please try again in a few seconds!";
 		activeFile.clear();
+		return false;
 	}
-	else
-	{
-		activeFile.open(fileLocation);
-	}
+	return true;
 }
 
 void Commands::close()
@@ -48,15 +46,19 @@ bool Commands::parseRead(const std::string command, const std::string arguments)
 	}
 	else if (lowerred(command) == "help")
 	{
-		this->help();
+		//this->help();
 	}
 	else if (lowerred(command) == "save")
 	{
-		this->save();
+		//this->save();
 	}
-	else if (lowerred(command) == "savas")
+	else if (lowerred(command) == "saveas")
 	{
-		this->saveAs(arguments);
+		//this->saveAs(arguments);
+	}
+	else
+	{
+		return false;
 	}
 	return true;
 }
@@ -68,7 +70,11 @@ void Commands::parsingFromFile()
 	{
 		std::cin >> command;
 		std::getline(std::cin, arguments);
-		parseRead(command, arguments);
+		if (!parseRead(command, arguments))
+		{
+			std::cout << "The command you have entered is not supported yet, to find commands compatible with this version type help";
+		}
+		
 		//parseRead(temp);
 	}
 }

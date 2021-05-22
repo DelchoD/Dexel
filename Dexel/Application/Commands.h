@@ -6,15 +6,15 @@ class Commands
 {
 protected:
 	std::fstream activeFile;
-	bool parser;
+	bool parser, isFileOpened;
 
-	void open(const std::string fileLocation);
+	bool open(const std::string fileLocation);
 	void close();
-	void save();
-	void newCommand();
-	void saveAs(const std::string fileLocation);
+	//virtual void save()=0;
+	//virtual void newCommand()=0;
+	//virtual void saveAs(const std::string fileLocation)=0;
 	void exit();
-	void help();
+	//void help();
 	bool parseRead(const std::string command, const std::string arguments);
 public:
 	void parsingFromFile();
