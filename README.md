@@ -26,7 +26,7 @@ There may be different representations for a table. For example, the table:
 can be presented in the following ways (other presentations are possible):
 
 
-|<p>10, 20, 30, 40</p><p></p><p>10,,1000,</p><p>,,,</p><p>,10</p>|<p>10, 20, 30 , 40</p><p></p><p>10,, 1000,</p><p>`  `,   ,     ,</p><p>`  `, 10</p>|
+|<p>10, 20, 30, 40</p><p></p><p>10, ,1000,</p><p>, , ,</p><p>, 10</p>|<p>10, 20, 30 , 40</p><p></p><p>10, , 1000,</p><p> ,   ,     ,</p><p>, 10</p>|
 | :- | :- |
 ## Data types in the table
 Each cell in the table has a type, and there can be cells of different types in one table at the same time. Your application should be able to support the following types:
@@ -77,7 +77,7 @@ When output, the data in the columns must be aligned. Vertical bar symbols must 
 
 |Input File|Operation of the command|
 | :- | :- |
-|<p>10, "abc", 123.56</p><p>"\"Quoted\""</p><p>1, 2, 3, 400</p><p>,,A3+B3+C3</p><p></p><p></p>|<p>> print</p><p>`  `| A       | B   | C      | D   |</p><p>1 |      10 | abc | 123.56 |     |</p><p>2 |"Quoted" |     |        |     |</p><p>3 |       1 |   2 |      3 | 400 |</p><p>4 |         |     |      6 |     |</p>|
+|<p>10, "abc", 123.56</p><p>"\"Quoted\""</p><p>1, 2, 3, 400</p><p>,,A3+B3+C3</p><p></p><p></p>|<p>> print</p><p>| A       | B   | C      | D   |</p><p>1 |      10 | abc | 123.56 |     |</p><p>2 |"Quoted" |     |        |     |</p><p>3 |       1 |   2 |      3 | 400 |</p><p>4 |         |     |      6 |     |</p>|
 
 ## Edit Cells
 The command allows the user to change the values of the individual cells. Arguments are a reference to a cell and a new value that we want to fit into it. e.g:
