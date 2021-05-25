@@ -6,7 +6,7 @@ class Table
 {
 private:
 	std::vector<Row> tableRows;
-private:
+public:
 	void print();
 	void edit(int columnIndex,int rowIndex, const std::string newContent);
 	void writeToFile(std::fstream& writer);
