@@ -1,5 +1,6 @@
 #include "TableCommands.h"
 #include "GeneralUtils.h"
+
 bool TableCommands::parseRead(const std::string command, const std::string arguments)
 {
 	if (lowerred(command) == "print")
@@ -44,4 +45,24 @@ bool TableCommands::saveAs(const std::string fileLocation)
 	CSVWriter(tempFile);
 	tempFile.close();
 	return true;
+}
+
+void TableCommands::edit(const std::string editionParameters)
+{
+	const std::string temp = editionParameters;
+}
+
+void TableCommands::print()
+{
+	table.print();
+}
+
+void TableCommands::CSVWriter(std::fstream& writer)
+{
+	table.writeToFile(writer);
+}
+
+bool TableCommands::CSVReader()
+{
+	return table.parseFromFile(activeFile);
 }
