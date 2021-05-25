@@ -1,5 +1,4 @@
 #pragma once
-
 #include <iostream>
 #include <vector>
 #include "Cell.h"
@@ -16,8 +15,9 @@ public:
 	~Row();
 
 	void print();
-	int getNumberOfCellsPerRow();
+	//int getNumberOfCellsPerRow();
+	void writeToFile(std::fstream& writer);
 	void setCell(int columnIndex, const std::string _cellEditedContent);
-	Cell* getCell(int columnIndex);
+	//Cell* getCell(int columnIndex);
 };
 
