@@ -8,8 +8,8 @@ private:
 	std::vector<Row> tableRows;
 public:
 	void print();
-	void edit(int columnIndex,int rowIndex, const std::string newContent);
+	void edit(int rowIndex,int columnIndex, const std::string newContent);
 	void writeToFile(std::fstream& writer);
-	bool parseFromFile(std::fstream& reader);
+	bool parseFromFile(std::istream& reader);
 };
 
