@@ -16,6 +16,7 @@ bool TableCommands::parseRead(const std::string command, const std::string argum
 		return Commands::parseRead(command, arguments);
 	}
 	return true;
+
 }
 
 bool TableCommands::open(const std::string fileLocation)
@@ -49,7 +50,15 @@ bool TableCommands::saveAs(const std::string fileLocation)
 
 void TableCommands::edit(const std::string editionParameters)
 {
-	const std::string temp = editionParameters;
+	int row = 0, col = 0, endFirst = 0, endSecond = 0;
+	if (!readForEdit(editionParameters, ' ', row, &endFirst) || !readForEdit(editionParameters + std::to_string(endFirst), ' ', col, &endSecond)
+		&& row >= 0 && col >= 0) 
+	{
+		std::cout << "Something is wrong with the input data" << std::endl;
+	}
+	for (endSecond; editionParameters[endSecond] == ' '; ++endSecond);
+	const std::string newContent = editionParameters+std::to_string(endFirst) + std::to_string(endSecond);
+	table.edit(row, col, newContent);
 }
 
 void TableCommands::print()
