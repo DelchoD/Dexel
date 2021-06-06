@@ -25,6 +25,11 @@ IntCell::IntCell(const char* _cellContent):Cell(_cellContent)
 //{
 //}
 
+double IntCell::examine()
+{
+	return cellValueAsInt;
+}
+
 Cell* IntCell::copyCell()
 {
 	return new IntCell(*this);
