@@ -4,8 +4,9 @@
 #include "StringCell.h"
 #include "FormulaCell.h"
 #include "CellUtils.h"
+#include "Table.h"
 #include <fstream>
-bool Row::readRow(const char *source, char *buffer, int* length)
+bool Row::readRow(const char *source, char *buffer, int* length) const
 {
 	size_t index = 0;
 	if (*source == '\0') 
@@ -23,11 +24,11 @@ bool Row::readRow(const char *source, char *buffer, int* length)
 	return true;
 }
 
-Row::Row()
+Row::Row():transfer(nullptr)
 {
 }
 
-Row::Row(char *rowValue)
+Row::Row(char *rowValue, const Table* _transfer):transfer(nullptr)
 {
 	char* rowParser = rowValue;
 	char buffer[1024];
@@ -35,12 +36,12 @@ Row::Row(char *rowValue)
 	while (readRow(rowParser, buffer, &offset)) 
 	{
 		rowParser += offset;
-		Cell* newCell = getCell(buffer);
+		Cell* newCell = createCell(buffer);
 		cellsPerRow.push_back(newCell);
 	}
 }
 
-Row::Row(const Row& rhs)
+Row::Row(const Row& rhs):transfer(rhs.transfer)
 {
 	cellsPerRow = rhs.cellsPerRow;
 	for (size_t i = 0; i < cellsPerRow.size(); i++)
@@ -70,7 +71,12 @@ Row::~Row()
 	}
 }
 
-void Row::print()
+Cell* Row::getCell(int columnIndex) const
+{
+	return cellsPerRow[columnIndex];
+}
+
+void Row::print() const
 {
 	for (size_t i = 0; i < cellsPerRow.size(); i++)
 	{
@@ -82,7 +88,7 @@ void Row::print()
 	}
 }
 
-void Row::writeToFile(std::fstream& writer)
+void Row::writeToFile(std::fstream& writer) const
 {
 	for (size_t i = 0; i < cellsPerRow.size(); i++)
 	{
@@ -96,10 +102,10 @@ void Row::writeToFile(std::fstream& writer)
 
 void Row::setCell(int columnIndex, const char *_cellEditedContent)
 {
-	cellsPerRow[columnIndex] = getCell(_cellEditedContent);
+	cellsPerRow[columnIndex] = createCell(_cellEditedContent);
 }
 
-Cell* Row::getCell(const char *cellCont)
+Cell* Row::createCell(const char *cellCont) const
 {
 	const char* parser = cellCont;
 	for (; *parser == ' '; ++parser);
@@ -110,7 +116,7 @@ Cell* Row::getCell(const char *cellCont)
 	}
 	if (*parser == '=') 
 	{
-		return new FormulaCell(parser);
+		return new FormulaCell(parser,transfer);
 	}
 
 	bool isInteger = true;
