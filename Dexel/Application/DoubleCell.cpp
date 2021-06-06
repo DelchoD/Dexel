@@ -9,7 +9,8 @@ DoubleCell::DoubleCell(const char* _cellContent):Cell(_cellContent)
 	double number = 0;
 	int exp = 1;
 	bool afterDecimalPoint = false;
-	for (index = (cellContent[0] == '-') ? 1 : 0; cellContent[index] != '\0'; index++) 
+	index = (cellContent[0] == '-') ? 1 : 0;
+	for (index; cellContent[index] != '\0'; index++) 
 	{
 		if (cellContent[index] == '.') 
 		{
