@@ -39,6 +39,11 @@ DoubleCell::DoubleCell(const char* _cellContent):Cell(_cellContent)
 //	
 //}
 
+double DoubleCell::examine()
+{
+	return cellValueAsDouble;
+}
+
 Cell* DoubleCell::copyCell()
 {
 	return new DoubleCell(*this);
