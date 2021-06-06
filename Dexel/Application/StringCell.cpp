@@ -12,6 +12,11 @@ StringCell::StringCell(const char* _cellContent):Cell(_cellContent)
 //{
 //}
 
+double StringCell::examine()
+{
+    return 0;
+}
+
 Cell* StringCell::copyCell()
 {
     return new StringCell(*this);

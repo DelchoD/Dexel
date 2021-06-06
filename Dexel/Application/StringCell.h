@@ -9,6 +9,7 @@ public:
 	StringCell(const char* _cellContent);
 	/*virtual void writeToFile(std::fstream& writer);
 	virtual void print();*/
+	virtual double examine();
 	virtual Cell* copyCell();
 };
 
