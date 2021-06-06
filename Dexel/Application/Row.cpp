@@ -104,27 +104,34 @@ Cell* Row::getCell(const char *cellCont)
 	const char* parser = cellCont;
 	for (; *parser == ' '; ++parser);
 
-	if (*parser == '\0') {
+	if (*parser == '\0') 
+	{
 		return new StringCell("");
 	}
-	if (*parser == '=') {
+	if (*parser == '=') 
+	{
 		return new FormulaCell(parser);
 	}
 
 	bool isInteger = true;
 	bool isDouble = true;
-	size_t i = (parser[0] == '-' && parser[1] != '\0' && isDigit(parser[1])) ? 1 : 0;;
-	for (; parser[i] != '\0' && (isDigit(parser[i]) || parser[i] == '.'); ++i) {
-		if (parser[i] == '.') {
+	size_t index = ((parser[0] == '-' || parser[0] == '+')&& parser[1] != '\0' && isDigit(parser[1])) ? 1 : 0;
+	for (index; parser[index] != '\0' && (isDigit(parser[index]) || parser[index] == '.'); ++index)
+	{
+		if (parser[index] == '.')
+		{
 			isInteger ? isInteger = false : isDouble = false;
 		}
 	}
-	for (; parser[i] == ' '; ++i);
-	if (parser[i] == '\0') {
-		if (isInteger) {
+	for (; parser[index] == ' '; ++index);
+	if (parser[index] == '\0')
+	{
+		if (isInteger) 
+		{
 			return new IntCell(parser);
 		}
-		else if (isDouble) {
+		else if (isDouble) 
+		{
 			return new DoubleCell(parser);
 		}
 	}
