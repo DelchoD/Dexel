@@ -29,8 +29,14 @@ bool TableCommands::open(const char* fileLocation)
 	return CSVReader();
 }
 
-void TableCommands::save()
+bool TableCommands::save()
 {
+	activeFile.close();
+	if (!saveAs(activeFilePath)) 
+	{
+		return false;
+	}
+	return open(activeFilePath);
 	CSVWriter(activeFile);
 }
 
@@ -56,9 +62,9 @@ void TableCommands::edit(const char* editionParameters)
 	{
 		std::cout << "Something is wrong with the input data" << std::endl;
 	}
-	for (endSecond; editionParameters[endSecond] == ' '; ++endSecond);
+	for (endSecond; editionParameters[endFirst+endSecond] == ' '; ++endSecond);
 	const char* newContent = editionParameters+endFirst + endSecond;
-	table.edit(row, col, newContent);
+	table.edit(row-1, col-1, newContent);
 }
 
 void TableCommands::close()

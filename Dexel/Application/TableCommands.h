@@ -8,7 +8,7 @@ private:
 
 	bool parseRead(char* command, const char* arguments);
 	bool open(const char* fileLocation);
-	void save();
+	bool save();
 	//void newCommand();
 	bool saveAs(const char* fileLocation);
 	void edit(const char* editionParameters);
