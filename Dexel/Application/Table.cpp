@@ -3,7 +3,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-void Table::print()
+void Table::print() const
 {
 	for (size_t i = 0; i < tableRows.size(); i++)
 	{
@@ -21,7 +21,7 @@ void Table::restart()
 	tableRows.clear();
 }
 
-void Table::writeToFile(std::fstream& writer)
+void Table::writeToFile(std::fstream& writer) const
 {
 	for (size_t i = 0; i < tableRows.size(); i++)
 	{
@@ -29,12 +29,17 @@ void Table::writeToFile(std::fstream& writer)
 	}
 }
 
+Cell* Table::getCell(int rowIndex, int columnIndex) const
+{
+	return tableRows[rowIndex].getCell(columnIndex);
+}
+
 bool Table::parseFromFile(std::istream& reader)  //can convert from fstream to istream
 {
 	char temp[1024]{};
 	while (reader.getline(temp,(std::streamsize)1024))
 	{
-		tableRows.push_back(Row(temp));
+		tableRows.push_back(Row(temp,this));
 	}
 	return true;
 }
