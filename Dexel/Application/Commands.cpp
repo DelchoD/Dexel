@@ -12,6 +12,8 @@ bool Commands::open(const char* fileLocation)
 		activeFile.clear();
 		return false;
 	}
+	activeFilePath = new char[strlen(fileLocation)];
+	strcpy(activeFilePath, fileLocation);
 	return true;
 }
 
@@ -61,6 +63,12 @@ bool Commands::parseRead(const char* command, const char* arguments)
 		return false;
 	}
 	return true;
+}
+
+Commands::~Commands()
+{
+	delete[] activeFilePath;
+	close();
 }
 
 void Commands::parsingFromFile()
