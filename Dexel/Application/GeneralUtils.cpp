@@ -11,30 +11,35 @@ char converToLower(char symbol)
         return symbol;
     }
 }
-std::string lowerred(std::string stringToLower)
+const char* lowerred(const char* _stringToLower)
 {
+	std::string stringToLower = stringToLower.c_str();
 	for (std::string::iterator i = stringToLower.begin(); i != stringToLower.end(); i++)
 	{
 		*i = converToLower(*i);
 	}
-	return stringToLower;
+	return stringToLower.c_str();
 }
-bool readForEdit(const std::string str, char endSym, int& intHolder, int* lengthRead)
+bool readForEdit(const char* str, char endSym, int& intHolder, int* lengthRead)
 {
 	int index = 0;
 	for (index; str[index] == ' '; ++index);
 	bool sign = true;
-	if (str[index] == '-') {
+	if (str[index] == '-') 
+	{
 		++index;
 		sign = false;
 	}
 	int number = 0;
-	for (index; str[index] != endSym && str[index] != '\n' && str[index] != '\0'; index++) {
-		if (isDigit(str[index])) {
+	for (index; str[index] != endSym && str[index] != '\n' && str[index] != '\0'; index++) 
+	{
+		if (isDigit(str[index])) 
+		{
 			number *= 10;
 			number += str[index] - '0';
 		}
-		else {
+		else 
+		{
 			return false;
 		}
 	}

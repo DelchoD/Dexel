@@ -2,6 +2,6 @@
 #include <iostream>
 #include "CellUtils.h"
 char converToLower(char symbol);
-std::string lowerred(std::string stringToLower);
-bool readForEdit(const std::string str, char endSym, int& intHolder, int* lengthRead = nullptr);
+const char* lowerred(const char* _stringToLower);
+bool readForEdit(const char* str, char endSym, int& intHolder, int* lengthRead = nullptr);
 

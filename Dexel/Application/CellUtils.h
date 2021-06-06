@@ -10,9 +10,9 @@ enum class TypeOfCell
 	Empty
 };
 
-TypeOfCell findCellType(std::string _cellContent);
+TypeOfCell findCellType(const char* _cellContent);
 std::string trim(std::string trimmedValue);
-int parseInt(std::string valueToExamine);
-double parseDouble(std::string valueToExamine);
+int parseInt(char* valueToExamine, int* len=nullptr);
+double parseDouble(char* valueToExamine, int* len=nullptr);
 bool isDigit(char symbol);
 

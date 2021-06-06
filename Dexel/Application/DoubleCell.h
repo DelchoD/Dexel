@@ -4,9 +4,12 @@
 class DoubleCell : public Cell
 {
 private:
-	double cellValueAsDouble;
+	double cellValueAsDouble{};
 public:
-	DoubleCell(std::string _cellContent);
+	DoubleCell(const char* _cellContent);
+	/*virtual void writeToFile(std::fstream& writer);
+	virtual void print();*/
 	virtual Cell* copyCell();
+
 };
 

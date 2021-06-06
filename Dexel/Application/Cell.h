@@ -3,15 +3,17 @@
 class Cell
 {
 protected:
-	std::string cellContent;
+	char* cellContent;
 public:
 	Cell();
-	Cell(std::string _cellContent);
+	Cell(const char* _cellContent);
 	Cell(const Cell& rhs);
 	Cell& operator=(Cell& rhs);
-	virtual void setContent(const std::string cellNewContent) = 0;
-	virtual void writeToFile(std::fstream& writer)=0;
-	virtual void print(int width)const;
+	//virtual void setContent(const char* cellNewContent) = 0;
+	friend std::ostream& operator<<(std::ostream& out, const Cell& rhs);
+	virtual void writeToFile(std::fstream& writer);
+	virtual void print();
 	virtual Cell* copyCell() = 0;
+	virtual ~Cell();
 };
 

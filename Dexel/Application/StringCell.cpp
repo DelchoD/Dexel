@@ -1,8 +1,16 @@
 #include "StringCell.h"
 
-StringCell::StringCell(std::string _cellContent):Cell(_cellContent)
+StringCell::StringCell(const char* _cellContent):Cell(_cellContent)
 {
 }
+
+//void StringCell::writeToFile(std::fstream& writer)
+//{
+//}
+//
+//void StringCell::print()
+//{
+//}
 
 Cell* StringCell::copyCell()
 {

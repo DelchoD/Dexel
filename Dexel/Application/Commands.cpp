@@ -3,7 +3,7 @@
 #include <string>
 #include <algorithm>
 
-bool Commands::open(const std::string fileLocation)
+bool Commands::open(const char* fileLocation)
 {
 	activeFile.open(fileLocation);
 	if (activeFile.fail())
@@ -29,30 +29,30 @@ void Commands::exit()
 	parser = false;
 }
 
-bool Commands::parseRead(const std::string command, const std::string arguments)
+bool Commands::parseRead(const char* command, const char* arguments)
 {
 	//switch can be used with integral or enum types
-	if (lowerred(command) =="open")
+	if (strcmp(command,"open")==0)
 	{
 		this->open(arguments);
 	}
-	else if (lowerred(command) == "exit")
+	else if (strcmp(command, "exit") == 0)
 	{
 		this->exit();
 	}
-	else if (lowerred(command) == "close")
+	else if (strcmp(command, "close") == 0)
 	{
 		this->close();
 	}
-	else if (lowerred(command) == "help")
+	else if (strcmp(command, "help") == 0)
 	{
 		//this->help();
 	}
-	else if (lowerred(command) == "save")
+	else if (strcmp(command, "save") == 0)
 	{
 		//this->save();
 	}
-	else if (lowerred(command) == "saveas")
+	else if (strcmp(command, "saveas") == 0)
 	{
 		//this->saveAs(arguments);
 	}
@@ -65,16 +65,17 @@ bool Commands::parseRead(const std::string command, const std::string arguments)
 
 void Commands::parsingFromFile()
 {
-	std::string command,arguments;
+	parser = true;
+	char command[6];
+	char arguments[512];
 	while (parser)
 	{
+		std::cout << "Please enter your command: ";
 		std::cin >> command;
-		std::getline(std::cin, arguments);
+		std::cin.getline(arguments,511);
 		if (!parseRead(command, arguments))
 		{
-			std::cout << "The command you have entered is not supported yet, to find commands compatible with this version type help";
+			std::cout << "The command you have entered is not supported yet, to find commands compatible with this version type help\n";
 		}
-		
-		//parseRead(temp);
 	}
 }

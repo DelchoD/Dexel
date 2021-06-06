@@ -1,10 +1,19 @@
 #include "IntCell.h"
 
-IntCell::IntCell(std::string _cellContent):Cell(_cellContent)
+IntCell::IntCell(const char* _cellContent):Cell(_cellContent)
 {
-	_cellContent = trim(_cellContent);
-	cellValueAsInt = parseInt(_cellContent);
+	size_t index = 0;
+	for (cellContent; cellContent[index] != ' '; ++cellContent);
+	*cellContent = '\0';
 }
+
+//void IntCell::writeToFile(std::fstream& writer)
+//{
+//}
+//
+//void IntCell::print()
+//{
+//}
 
 Cell* IntCell::copyCell()
 {

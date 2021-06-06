@@ -6,12 +6,13 @@ class TableCommands : public Commands
 private:
 	Table table;
 
-	bool parseRead(const std::string command, const std::string arguments);
-	bool open(const std::string fileLocation);
+	bool parseRead(char* command, const char* arguments);
+	bool open(const char* fileLocation);
 	void save();
 	//void newCommand();
-	bool saveAs(const std::string fileLocation);
-	void edit(const std::string editionParameters);
+	bool saveAs(const char* fileLocation);
+	void edit(const char* editionParameters);
+	virtual void close();
 	void print();
 
 	void CSVWriter(std::fstream& writer);

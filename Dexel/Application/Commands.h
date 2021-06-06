@@ -8,14 +8,14 @@ protected:
 	std::fstream activeFile;
 	bool parser, isFileOpened;
 
-	bool open(const std::string fileLocation);
+	bool open(const char* fileLocation);
 	void close();
 	virtual void save()=0;
-	virtual void newCommand()=0;
-	virtual bool saveAs(const std::string fileLocation)=0;
+	//virtual void newCommand()=0;
+	virtual bool saveAs(const char* fileLocation)=0;
 	void exit();
 	//void help();
-	bool parseRead(const std::string command, const std::string arguments);
+	bool parseRead(const char* command, const char* arguments);
 public:
 	void parsingFromFile();
 };

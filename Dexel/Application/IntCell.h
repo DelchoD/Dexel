@@ -4,9 +4,11 @@
 class IntCell : public Cell
 {
 private:
-	int cellValueAsInt;
+	int cellValueAsInt{};
 public:
-	IntCell(std::string _cellContent);
+	IntCell(const char* _cellContent);
+	//virtual void writeToFile(std::fstream& writer);
+	//virtual void print();
 	virtual Cell* copyCell();
 };
 

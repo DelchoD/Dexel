@@ -1,13 +1,14 @@
 #include "TableCommands.h"
 #include "GeneralUtils.h"
 
-bool TableCommands::parseRead(const std::string command, const std::string arguments)
+bool TableCommands::parseRead(char* command, const char* arguments)
 {
-	if (lowerred(command) == "print")
+	if (strcmp(command,"print")==0)
 	{
+		std::cout << "Hello";
 		this->print();
 	}
-	else if (lowerred(command) == "edit")
+	else if (strcmp(command, "edit")==0)
 	{
 		this->edit(arguments);
 	}
@@ -19,9 +20,9 @@ bool TableCommands::parseRead(const std::string command, const std::string argum
 
 }
 
-bool TableCommands::open(const std::string fileLocation)
+bool TableCommands::open(const char* fileLocation)
 {
-	if (Commands::open(fileLocation))
+	if (!Commands::open(fileLocation))
 	{
 		return false;
 	}
@@ -33,7 +34,7 @@ void TableCommands::save()
 	CSVWriter(activeFile);
 }
 
-bool TableCommands::saveAs(const std::string fileLocation)
+bool TableCommands::saveAs(const char* fileLocation)
 {
 	std::fstream tempFile;
 	tempFile.open(fileLocation, std::ios::trunc | std::ios::out);
@@ -48,17 +49,22 @@ bool TableCommands::saveAs(const std::string fileLocation)
 	return true;
 }
 
-void TableCommands::edit(const std::string editionParameters)
+void TableCommands::edit(const char* editionParameters)
 {
 	int row = 0, col = 0, endFirst = 0, endSecond = 0;
-	if (!readForEdit(editionParameters, ' ', row, &endFirst) || !readForEdit(editionParameters + std::to_string(endFirst), ' ', col, &endSecond)
-		&& row >= 0 && col >= 0) 
+	if (!readForEdit(editionParameters, ' ', row, &endFirst) || !readForEdit(editionParameters + endFirst, ' ', col, &endSecond) && row >= 0 && col >= 0) 
 	{
 		std::cout << "Something is wrong with the input data" << std::endl;
 	}
 	for (endSecond; editionParameters[endSecond] == ' '; ++endSecond);
-	const std::string newContent = editionParameters+std::to_string(endFirst) + std::to_string(endSecond);
+	const char* newContent = editionParameters+endFirst + endSecond;
 	table.edit(row, col, newContent);
+}
+
+void TableCommands::close()
+{
+	Commands::close();
+	table.restart();
 }
 
 void TableCommands::print()

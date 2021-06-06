@@ -6,7 +6,9 @@ class StringCell : public Cell
 {
 private:
 public:
-	StringCell(std::string _cellContent);
+	StringCell(const char* _cellContent);
+	/*virtual void writeToFile(std::fstream& writer);
+	virtual void print();*/
 	virtual Cell* copyCell();
 };
 

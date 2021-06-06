@@ -1,10 +1,20 @@
 #include "DoubleCell.h"
 
-DoubleCell::DoubleCell(std::string _cellContent):Cell(_cellContent)
+DoubleCell::DoubleCell(const char* _cellContent):Cell(_cellContent)
 {
-	_cellContent = trim(_cellContent);
-	cellValueAsDouble = parseDouble(_cellContent);
+	size_t index = 0;
+	for (cellContent; cellContent[index] != ' '; ++index);
+	*cellContent = '\0';
 }
+
+//void DoubleCell::writeToFile(std::fstream& writer)
+//{
+//}
+//
+//void DoubleCell::print()
+//{
+//	
+//}
 
 Cell* DoubleCell::copyCell()
 {
