@@ -29,12 +29,12 @@ Row::Row()
 
 Row::Row(char *rowValue)
 {
-	char* rowReader = rowValue;
+	char* rowParser = rowValue;
 	char buffer[1024];
 	int offset = 0;
-	while (readRow(rowReader, buffer, &offset)) 
+	while (readRow(rowParser, buffer, &offset)) 
 	{
-		rowReader += offset;
+		rowParser += offset;
 		Cell* newCell = getCell(buffer);
 		cellsPerRow.push_back(newCell);
 	}
@@ -101,33 +101,33 @@ void Row::setCell(int columnIndex, const char *_cellEditedContent)
 
 Cell* Row::getCell(const char *cellCont)
 {
-	const char* reader = cellCont;
-	for (; *reader == ' '; ++reader);
+	const char* parser = cellCont;
+	for (; *parser == ' '; ++parser);
 
-	if (*reader == '\0') {
+	if (*parser == '\0') {
 		return new StringCell("");
 	}
-	if (*reader == '=') {
-		return new FormulaCell(reader);
+	if (*parser == '=') {
+		return new FormulaCell(parser);
 	}
 
 	bool isInteger = true;
 	bool isDouble = true;
-	size_t i = 0;
-	for (; reader[i] != '\0' && (isDigit(reader[i]) || reader[i] == '.'); ++i) {
-		if (reader[i] == '.') {
+	size_t i = (parser[0] == '-' && parser[1] != '\0' && isDigit(parser[1])) ? 1 : 0;;
+	for (; parser[i] != '\0' && (isDigit(parser[i]) || parser[i] == '.'); ++i) {
+		if (parser[i] == '.') {
 			isInteger ? isInteger = false : isDouble = false;
 		}
 	}
-	for (; reader[i] == ' '; ++i);
-	if (reader[i] == '\0') {
+	for (; parser[i] == ' '; ++i);
+	if (parser[i] == '\0') {
 		if (isInteger) {
-			return new IntCell(reader);
+			return new IntCell(parser);
 		}
 		else if (isDouble) {
-			return new DoubleCell(reader);
+			return new DoubleCell(parser);
 		}
 	}
 
-	return new StringCell(reader);
+	return new StringCell(parser);
 }
