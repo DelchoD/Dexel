@@ -1,5 +1,6 @@
 #include "Cell.h"
 #include<iostream>
+#include <fstream>
 #include <iomanip>
 Cell::Cell():cellContent(nullptr) {
 }
@@ -27,7 +28,7 @@ Cell& Cell::operator=(Cell& rhs)
 
 void Cell::writeToFile(std::fstream& writer) const
 {
-	//writer << cellContent;
+	writer << cellContent;
 }
 
 void Cell::print(int cellWidth) const

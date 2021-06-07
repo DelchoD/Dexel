@@ -29,9 +29,10 @@ void Commands::close()
 	{
 		activeFile.close();
 		std::cout << "File is closed successfully\n" << std::endl;
+		return;
 	}
 	isFileOpened = false;
-	std::cout << "There is problem in opening the file, please try again\n";
+	std::cout << "There is problem in closing the file, please try again\n";
 }
 
 void Commands::exit()
@@ -74,11 +75,11 @@ bool Commands::parseRead(const char* command, const char* arguments)
 	}
 	else if (strcmp(command, "save") == 0)
 	{
-		//this->save();
+		this->save();
 	}
 	else if (strcmp(command, "saveas") == 0)
 	{
-		//this->saveAs(arguments);
+		this->saveAs(arguments);
 	}
 	else
 	{
@@ -89,11 +90,11 @@ bool Commands::parseRead(const char* command, const char* arguments)
 
 Commands::~Commands()
 {
+	//delete[] activeFilePath;
 	if (isFileOpened)
 	{
 		close();
 	}
-	delete[] activeFilePath;
 }
 
 void Commands::parsingFromFile()
@@ -105,7 +106,7 @@ void Commands::parsingFromFile()
 	{
 		std::cout << "Please enter your command: ";
 		std::cin >> command;
-		if ((strcmp(command,"print")!=0)&&(strcmp(command, "help") != 0))
+		if (!((strcmp(command,"print")==0)||(strcmp(command, "help") == 0) || (strcmp(command, "close") == 0) || (strcmp(command, "save") == 0) || (strcmp(command, "exit") == 0)))
 		{
 			std::cin.ignore();
 		}

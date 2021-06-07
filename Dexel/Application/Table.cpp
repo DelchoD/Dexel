@@ -51,6 +51,7 @@ void Table::edit(int rowIndex, int columnIndex, const char* newContent)
 void Table::restart()
 {
 	tableRows.clear();
+	columnWidths.clear();
 }
 
 void Table::writeToFile(std::fstream& writer) const
@@ -58,6 +59,7 @@ void Table::writeToFile(std::fstream& writer) const
 	for (size_t i = 0; i < tableRows.size(); i++)
 	{
 		tableRows[i].writeToFile(writer);
+		writer << "\n";
 	}
 }
 
