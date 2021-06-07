@@ -116,37 +116,21 @@ Cell* Row::createCell(const char *cellCont) const
 	const char* parser = cellCont;
 	for (; *parser == ' '; ++parser);
 
-	if (*parser == '\0') 
+	switch (findCellType(parser))
 	{
-		return new StringCell("");
-	}
-	if (*parser == '=') 
-	{
+	case TypeOfCell::Integer:
+		return new IntCell(parser);
+		break;
+	case TypeOfCell::Double:
+		return new DoubleCell(parser);
+		break;
+	case TypeOfCell::String:
+		return new StringCell(parser);
+		break;
+	case TypeOfCell::Formula:
 		return new FormulaCell(parser,transfer);
+		break;
+	default:
+		break;
 	}
-
-	bool isInteger = true;
-	bool isDouble = true;
-	size_t index = ((parser[0] == '-' || parser[0] == '+')&& parser[1] != '\0' && isDigit(parser[1])) ? 1 : 0;
-	for (index; parser[index] != '\0' && (isDigit(parser[index]) || parser[index] == '.'); ++index)
-	{
-		if (parser[index] == '.')
-		{
-			isInteger ? isInteger = false : isDouble = false;
-		}
-	}
-	for (; parser[index] == ' '; ++index);
-	if (parser[index] == '\0')
-	{
-		if (isInteger) 
-		{
-			return new IntCell(parser);
-		}
-		else if (isDouble) 
-		{
-			return new DoubleCell(parser);
-		}
-	}
-
-	return new StringCell(parser);
 }
