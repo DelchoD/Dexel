@@ -39,6 +39,20 @@ void Commands::exit()
 	parser = false;
 }
 
+void Commands::help()
+{
+	std::cout << "Command        Usage\n";
+	std::cout << "close          close - closes currently opened file\n";
+	std::cout << "open           open <filelocation> - loads the selected file<file>\n";
+    std::cout << "save           save - saves the currently open file\n";
+	std::cout << "new            new - create new empty file\n";
+	std::cout << "saveas         saveas <file> -saves the currently open file in <file> move the program parser to it\n";
+    std::cout << "edit           edit <ColumnName><Row number> - prompts for the new value of the cell\n";
+	std::cout << "help           help - prints this information\n";
+    std::cout << "print          print - prints the information int the current table\n";
+    std::cout << "exit           exit - exists the program\n";
+}
+
 bool Commands::parseRead(const char* command, const char* arguments)
 {
 	//switch can be used with integral or enum types
@@ -56,7 +70,7 @@ bool Commands::parseRead(const char* command, const char* arguments)
 	}
 	else if (strcmp(command, "help") == 0)
 	{
-		//this->help();
+		this->help();
 	}
 	else if (strcmp(command, "save") == 0)
 	{
@@ -91,7 +105,11 @@ void Commands::parsingFromFile()
 	{
 		std::cout << "Please enter your command: ";
 		std::cin >> command;
-		std::cin.ignore();
+		if ((strcmp(command,"print")!=0)&&(strcmp(command, "help") != 0))
+		{
+			std::cin.ignore();
+		}
+
 		std::cin.getline(arguments,511);
 		if (!parseRead(command, arguments))
 		{

@@ -7,7 +7,7 @@ class Commands
 protected:
 	std::fstream activeFile;
 	char* activeFilePath;
-	bool parser, isFileOpened;
+	bool parser{}, isFileOpened{};
 
 	Commands();
 	virtual bool open(const char* fileLocation);
@@ -16,7 +16,7 @@ protected:
 	//virtual void newCommand()=0;
 	virtual bool saveAs(const char* fileLocation)=0;
 	void exit();
-	//void help();
+	void help();
 	virtual bool parseRead(const char* command, const char* arguments);
 	virtual ~Commands();
 public:
