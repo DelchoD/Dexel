@@ -1,29 +1,37 @@
 #include "Commands.h"
 #include "GeneralUtils.h"
+#include "TableCommands.h"
 #include <string>
 #include <algorithm>
+
+Commands::Commands():activeFilePath(NULL),isFileOpened(false)
+{
+}
 
 bool Commands::open(const char* fileLocation)
 {
 	activeFile.open(fileLocation);
 	if (activeFile.fail())
 	{
-		std::cerr << "There is a problem in opening the file, please try again in a few seconds!";
+		std::cerr << "There is a problem in opening the file, please try again in a few seconds!\n";
 		activeFile.clear();
 		return false;
 	}
 	activeFilePath = new char[strlen(fileLocation)];
 	strcpy(activeFilePath, fileLocation);
+	isFileOpened = true;
 	return true;
 }
 
 void Commands::close()
 {
-	if (!activeFile.is_open())
+	if (isFileOpened)
 	{
-		//throw an exception
+		activeFile.close();
+		std::cout << "File is closed successfully\n" << std::endl;
 	}
-	activeFile.close();
+	isFileOpened = false;
+	std::cout << "There is problem in opening the file, please try again\n";
 }
 
 void Commands::exit()
@@ -67,8 +75,11 @@ bool Commands::parseRead(const char* command, const char* arguments)
 
 Commands::~Commands()
 {
+	if (isFileOpened)
+	{
+		close();
+	}
 	delete[] activeFilePath;
-	close();
 }
 
 void Commands::parsingFromFile()
@@ -80,6 +91,7 @@ void Commands::parsingFromFile()
 	{
 		std::cout << "Please enter your command: ";
 		std::cin >> command;
+		std::cin.ignore();
 		std::cin.getline(arguments,511);
 		if (!parseRead(command, arguments))
 		{

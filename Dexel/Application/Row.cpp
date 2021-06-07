@@ -28,7 +28,7 @@ Row::Row():transfer(nullptr)
 {
 }
 
-Row::Row(char *rowValue, TableInterface* _transfer):transfer(nullptr)
+Row::Row(char *rowValue, TableInterface* _transfer):transfer(_transfer)
 {
 	char* rowParser = rowValue;
 	char buffer[1024];
@@ -87,6 +87,7 @@ void Row::print() const
 		}
 		cellsPerRow[i]->print(transfer->getColumnWidth((int)i));
 	}
+	std::cout << "\n";
 }
 
 int Row::getNumberOfCellsPerRow() const

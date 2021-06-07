@@ -42,7 +42,7 @@ int Cell::getCellLength() const
 
 Cell::~Cell()
 {
-	delete[] cellContent;
+	//delete[] cellContent;
 }
 
 std::ostream& operator<<(std::ostream& out, const Cell& rhs)
