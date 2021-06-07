@@ -2,6 +2,7 @@
 class CellInterface
 {
 public:
-	virtual double examine() = 0;
+	virtual double examine() const = 0;
+	virtual int getCellLength() const=0;
 };
 
