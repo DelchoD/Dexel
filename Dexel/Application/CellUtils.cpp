@@ -3,7 +3,6 @@
 TypeOfCell findCellType(const char* _cellContent)
 {
 	const char* temp = _cellContent;
-	size_t index = 0;
 	bool integer = true, doubles = true;
 	short numberOfDecimals = 0;
 
@@ -18,25 +17,31 @@ TypeOfCell findCellType(const char* _cellContent)
 	{
 		return TypeOfCell::String; //alternatively add Empty
 	}
-	int i = ((temp[0] == '-' || temp[0] == '+') && temp[1] != '\0' && isDigit(temp[1])) ? 1 : 0;
-	for (; temp[i] != '\0' && (isDigit(temp[i]) || temp[i] == '.'); ++i) {
-		if (temp[i] == '.') {
+	size_t index = ((temp[0] == '-' || temp[0] == '+') && temp[1] != '\0' && isDigit(temp[1])) ? 1 : 0;
+	
+	for (index; temp[index] != '\0' && (isDigit(temp[index]) || temp[index] == '.'); ++index) 
+	{
+		if (temp[index] == '.') 
+		{
 			integer ? integer = false : doubles = false;
 		}
 	}
 
-	for (; temp[i] == ' '; ++i);
-	if (temp[i] == '\0') {
-		if (integer) {
+	for (; temp[index] == ' '; ++index);
+	if (temp[index] == '\0') 
+	{
+		if (integer) 
+		{
 			return TypeOfCell::Integer;
 		}
-		else if (doubles) {
+		else if (doubles) 
+		{
 			return TypeOfCell::Double;
 		}
 	}
 
 	return TypeOfCell::String;
-	//else if (*temp == '+' || *temp == '-')
+	{//else if (*temp == '+' || *temp == '-')
 	//{
 	//	if (!isDigit(temp[index + 1]))
 	//	{
@@ -109,6 +114,7 @@ TypeOfCell findCellType(const char* _cellContent)
 	//{
 	//	return TypeOfCell::String;
 	//}
+	}
 }
 
 std::string trim(std::string trimmedValue)
@@ -126,14 +132,15 @@ std::string trim(std::string trimmedValue)
 
 int parseInt(char* valueToExamine, int* len)
 {
-	int i = 0;
+	size_t index = 0;
 	bool sign = valueToExamine[0] != '-';
 	int number = 0;
 
-	i = (valueToExamine[0] == '-' || valueToExamine[0] == '+') ? 1 : 0;
-	for (; valueToExamine[i] != '\0'; i++) {
+	index = (valueToExamine[0] == '-' || valueToExamine[0] == '+') ? 1 : 0;
+	for (index; valueToExamine[index] != '\0'; index++) 
+	{
 		number *= 10;
-		number += valueToExamine[i] - '0';
+		number += valueToExamine[index] - '0';
 	}
 
 	return sign ? number : -number;
@@ -141,21 +148,25 @@ int parseInt(char* valueToExamine, int* len)
 
 double parseDouble(char* valueToExamine, int* len)
 {
-	int i = 0;
+	size_t index = 0;
 	bool sign = valueToExamine[0] != '-';
 	double number = 0;
 	int exp = 1;
 	bool afterDecimalPoint = false;
 
-	i = (valueToExamine[0] == '-' || valueToExamine[0] == '+') ? 1 : 0;
-	for (; valueToExamine[i] != '\0'; i++) {
-		if (valueToExamine[i] == '.') {
+	index = (valueToExamine[0] == '-' || valueToExamine[0] == '+') ? 1 : 0;
+	for (index; valueToExamine[index] != '\0'; index++) 
+	{
+		if (valueToExamine[index] == '.') 
+		{
 			afterDecimalPoint = true;
 		}
-		else {
+		else 
+		{
 			number *= 10;
-			number += valueToExamine[i] - '0';
-			if (afterDecimalPoint) {
+			number += valueToExamine[index] - '0';
+			if (afterDecimalPoint) 
+			{
 				exp *= 10;
 			}
 		}
