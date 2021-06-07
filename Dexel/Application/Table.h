@@ -8,6 +8,8 @@ class Table : public TableInterface
 {
 private:
 	std::vector<Row> tableRows;
+	std::vector<int> columnWidths;
+	void setColumnWidth();
 public:
 	void print()const;
 	void edit(int rowIndex,int columnIndex, const char* newContent);
@@ -15,5 +17,6 @@ public:
 	void writeToFile(std::fstream& writer) const;
 	CellInterface* getCell(int row, int col) const;
 	bool parseFromFile(std::istream& reader); //check this twice
+	int getColumnWidth(int columnIndex) const;
 };
 

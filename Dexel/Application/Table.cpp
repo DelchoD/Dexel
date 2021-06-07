@@ -3,6 +3,38 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+void Table::setColumnWidth()
+{
+	int maxRowLen = 0;
+
+	for (int i = 0; i < tableRows.size(); i++)
+	{
+		int rowCells = tableRows[i].getNumberOfCellsPerRow();
+		if (maxRowLen < rowCells) 
+		{
+			maxRowLen = rowCells;
+		}
+	}
+
+	columnWidths = std::vector<int>(maxRowLen);
+
+	for (int i = 0; i < maxRowLen; i++) 
+	{
+		columnWidths.push_back(0);
+	}
+
+	for (int i = 0; i < tableRows.size(); i++)
+	{
+		for (int j = 0; j < tableRows[i].getNumberOfCellsPerRow(); j++)
+		{
+			int cellStrLen = getCell(i, j)->getCellLength();
+			if (columnWidths[j] < cellStrLen) 
+			{
+				columnWidths[j] = cellStrLen;
+			}
+		}
+	}
+}
 void Table::print() const
 {
 	for (size_t i = 0; i < tableRows.size(); i++)
@@ -41,5 +73,11 @@ bool Table::parseFromFile(std::istream& reader)  //can convert from fstream to i
 	{
 		tableRows.push_back(Row(temp,this));
 	}
+	setColumnWidth();
 	return true;
+}
+
+int Table::getColumnWidth(int columnIndex) const
+{
+	return columnWidths[columnIndex];
 }
