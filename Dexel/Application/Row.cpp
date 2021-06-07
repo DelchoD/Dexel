@@ -18,8 +18,8 @@ bool Row::readRow(const char *source, char *buffer, int* length) const
 		buffer[index] = source[index];
 	}
 	buffer[index] = '\0';
-	*length = source[index] == ',' ? index + 1 : index;
-	*length = ++index;
+	*length = source[index] == ',' ? (int)(index + 1) : (int)(index);
+	*length = (int)(++index);
 
 	return true;
 }
@@ -28,7 +28,7 @@ Row::Row():transfer(nullptr)
 {
 }
 
-Row::Row(char *rowValue, const TableInterface* _transfer):transfer(nullptr)
+Row::Row(char *rowValue, TableInterface* _transfer):transfer(nullptr)
 {
 	char* rowParser = rowValue;
 	char buffer[1024];
@@ -54,6 +54,7 @@ Row& Row::operator=(const Row& rhs)
 {
 	if (this != &rhs)
 	{
+		transfer = rhs.transfer;
 		cellsPerRow = rhs.cellsPerRow;
 		for (size_t i = 0; i < cellsPerRow.size(); i++)
 		{
@@ -84,8 +85,13 @@ void Row::print() const
 		{
 			std::cout << ", ";
 		}
-		cellsPerRow[i]->print();
+		cellsPerRow[i]->print(transfer->getColumnWidth((int)i));
 	}
+}
+
+int Row::getNumberOfCellsPerRow() const
+{
+	return (int)(cellsPerRow.size());
 }
 
 void Row::writeToFile(std::fstream& writer) const
