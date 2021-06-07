@@ -20,33 +20,39 @@ const char* lowerred(const char* _stringToLower)
 	}
 	return stringToLower.c_str();
 }
-bool readForEdit(const char* str, char endSym, int& intHolder, int* lengthRead)
+bool readForEdit(const char* editionValues, int& row, int& column, int& endRef)
 {
 	int index = 0;
-	for (index; str[index] == ' '; ++index);
+	for (index; editionValues[index] == ' '; ++index);
 	bool sign = true;
-	if (str[index] == '-') 
+	if (editionValues[index] == '-') 
 	{
 		++index;
 		sign = false;
 	}
-	int number = 0;
-	for (index; str[index] != endSym && str[index] != '\n' && str[index] != '\0'; index++) 
+	int columnT{}, rowT{};
+	if (IsTableRowIndex(editionValues[index]))
 	{
-		if (isDigit(str[index])) 
+		if (editionValues[index]>='a'&&editionValues[index]<='z')
 		{
-			number *= 10;
-			number += str[index] - '0';
+			columnT = editionValues[index] - '`';
 		}
-		else 
+		else if (editionValues[index] >= 'A' && editionValues[index] <= 'Z')
 		{
-			return false;
-		}
+			columnT = editionValues[index] - '@';
+		}	
 	}
-	intHolder = number;
-	if (lengthRead != NULL) {
-		*lengthRead = index;
+	else 
+	{
+		return false;
 	}
+	if (IsNumber(editionValues[index++]))
+	{
+		rowT = editionValues[index] - '0';;
+	}
+	row = rowT;
+	column = columnT;
+	endRef = 2;
 	return true;
 }
 
@@ -57,19 +63,14 @@ bool isOperator(char symbol)
 
 bool IsTableRowIndex(char symbol)
 {
-	//char columnIndexes[] = { 'A', 'a','B', 'b','C', 'c','D','d','E','e','F', 'f','G', 'g','H', 'h','I', 'i','J', 'j','K', 'k','L', 'l','M', 'm','N', 'n','O', 'o','P', 'p','Q', 'q','R', 'r','S', 's','T', 't','U', 'u','V', 'v','W', 'w','X', 'x','Y', 'y','Z', 'z' };
-	//while (columnIndexes)
-	//{
-	//	if (symbol==*columnIndexes)
-	//	{
-	//		return true;
-	//	}
-	//	else
-	//	{
-	//		(*columnIndexes)++;//??
-	//	}
-	//}
 	if ((symbol>='a'&&symbol<='z')||(symbol >= 'A' && symbol <= 'Z'))
+	{
+		return true;
+	}
+}
+bool IsNumber(char symbol)
+{
+	if ((symbol >= 'a' && symbol <= 'z') || (symbol >= 'A' && symbol <= 'Z'))
 	{
 		return true;
 	}
