@@ -9,7 +9,7 @@ public:
 	DoubleCell(const char* _cellContent);
 	/*virtual void writeToFile(std::fstream& writer);
 	virtual void print();*/
-	virtual double examine();
+	virtual double examine()const;
 	virtual Cell* copyCell();
 
 };

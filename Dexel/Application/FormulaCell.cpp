@@ -2,6 +2,7 @@
 #include "GeneralUtils.h"
 #include <cmath>
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 FormulaCell::FormulaCell(const char* _cellContent, const TableInterface* transfer) : Cell(_cellContent), tabletranfer(transfer)
 {
@@ -20,7 +21,7 @@ FormulaCell::FormulaCell(const char* _cellContent, const TableInterface* transfe
 	getCell(reader, end, rowSecondCell, columnSecondCell);
 }
 
-double FormulaCell::examine()
+double FormulaCell::examine()const
 {
 	double operand1 = tabletranfer->getCell(rowFirstCell - 1, columnFirstCell - 1)->examine();
 	double operand2 = tabletranfer->getCell(rowSecondCell - 1, columnSecondCell - 1)->examine();
@@ -62,7 +63,7 @@ void FormulaCell::getCell(const char* string, int& end, int& rowIndex, int& colu
 	end = index;
 }
 
-void FormulaCell::writeToFile(std::fstream& writer)
+void FormulaCell::writeToFile(std::fstream& writer) const
 {
 	double checkForNULL = tabletranfer->getCell(rowSecondCell - 1, columnSecondCell - 1)->examine();
 	if (sign == '/' && checkForNULL == 0)
@@ -75,9 +76,17 @@ void FormulaCell::writeToFile(std::fstream& writer)
 	}
 }
 
-void FormulaCell::print()
+void FormulaCell::print(int cellWidth)const
 {
-	std::cout << examine();
+	double op2 = tabletranfer->getCell(rowSecondCell - 1, columnSecondCell - 1)->examine();
+	if (sign == '/' && op2 == 0) 
+	{
+		std::cout << "ERROR";
+	}
+	else 
+	{
+		std::cout << std::setw(cellWidth) << examine();
+	}
 }
 
 Cell* FormulaCell::copyCell()

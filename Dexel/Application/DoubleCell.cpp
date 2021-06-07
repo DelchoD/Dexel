@@ -39,7 +39,7 @@ DoubleCell::DoubleCell(const char* _cellContent):Cell(_cellContent)
 //	
 //}
 
-double DoubleCell::examine()
+double DoubleCell::examine() const
 {
 	return cellValueAsDouble;
 }

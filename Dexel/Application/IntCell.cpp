@@ -25,7 +25,7 @@ IntCell::IntCell(const char* _cellContent):Cell(_cellContent)
 //{
 //}
 
-double IntCell::examine()
+double IntCell::examine() const
 {
 	return cellValueAsInt;
 }

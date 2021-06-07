@@ -12,7 +12,7 @@ StringCell::StringCell(const char* _cellContent):Cell(_cellContent)
 //{
 //}
 
-double StringCell::examine()
+double StringCell::examine()const
 {
     return 0;
 }
