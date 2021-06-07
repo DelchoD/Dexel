@@ -5,12 +5,12 @@ class FormulaCell : public Cell
 {
 private:
 	Cell* cellsToUse;
-	const Table* tabletranfer;
+	const TableInterface* tabletranfer;
 	int rowFirstCell, columnFirstCell;
 	int rowSecondCell, columnSecondCell;
 	char sign;
 public:
-	FormulaCell(const char* _cellContent, const Table* transfer);
+	FormulaCell(const char* _cellContent, const TableInterface* transfer);
 	virtual double examine();
 	void getCell(const char* string, int& end, int& rowIndex, int& colIndex);
 	virtual void writeToFile(std::fstream& writer);

@@ -2,7 +2,9 @@
 #include <vector>
 #include "Row.h"
 #include "GeneralUtils.h"
-class Table
+#include "CellInterface.h"
+#include "TableInterface.h"
+class Table : public TableInterface
 {
 private:
 	std::vector<Row> tableRows;
@@ -11,7 +13,7 @@ public:
 	void edit(int rowIndex,int columnIndex, const char* newContent);
 	void restart();
 	void writeToFile(std::fstream& writer) const;
-	Cell* getCell(int row, int col) const;
+	CellInterface* getCell(int row, int col) const;
 	bool parseFromFile(std::istream& reader); //check this twice
 };
 

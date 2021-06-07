@@ -29,7 +29,7 @@ void Table::writeToFile(std::fstream& writer) const
 	}
 }
 
-Cell* Table::getCell(int rowIndex, int columnIndex) const
+CellInterface* Table::getCell(int rowIndex, int columnIndex) const
 {
 	return tableRows[rowIndex].getCell(columnIndex);
 }

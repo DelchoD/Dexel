@@ -3,7 +3,7 @@
 #include <cmath>
 #include <iostream>
 #include <fstream>
-FormulaCell::FormulaCell(const char* _cellContent, const Table* transfer) : Cell(_cellContent), tabletranfer(transfer)
+FormulaCell::FormulaCell(const char* _cellContent, const TableInterface* transfer) : Cell(_cellContent), tabletranfer(transfer)
 {
 	char* reader = cellContent;
 	for (reader; *reader != ' '; ++reader);

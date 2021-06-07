@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
-class Cell
+#include "CellInterface.h"
+class Cell : public CellInterface
 {
 protected:
 	char* cellContent;

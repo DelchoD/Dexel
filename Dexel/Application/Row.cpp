@@ -28,7 +28,7 @@ Row::Row():transfer(nullptr)
 {
 }
 
-Row::Row(char *rowValue, const Table* _transfer):transfer(nullptr)
+Row::Row(char *rowValue, const TableInterface* _transfer):transfer(nullptr)
 {
 	char* rowParser = rowValue;
 	char buffer[1024];
