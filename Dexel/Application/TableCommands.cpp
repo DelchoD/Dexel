@@ -35,14 +35,21 @@ bool TableCommands::save()
 	{
 		return false;
 	}
+	table.restart();
 	return open(activeFilePath);
-	CSVWriter(activeFile);
 }
 
 bool TableCommands::saveAs(const char* fileLocation)
 {
 	std::fstream tempFile;
-	tempFile.open(fileLocation, std::ios::trunc | std::ios::out);
+	if (strcmp(fileLocation, activeFilePath)==0)
+	{
+		tempFile.open(fileLocation, std::ios::trunc | std::ios::out);
+	}
+	else
+	{
+		tempFile.open(fileLocation, std::ios::trunc | std::ios::out);
+	}
 
 	if (tempFile.fail())
 	{
@@ -53,19 +60,19 @@ bool TableCommands::saveAs(const char* fileLocation)
 
 	CSVWriter(tempFile);
 	tempFile.close();
-	std::cout << "The table is successfully saved to " << activeFilePath<<"\n";
+	std::cout << "The table is successfully saved to " << fileLocation<<"\n";
 	return true;
 }
 
 void TableCommands::edit(const char* editionParameters)
 {
-	int row = 0, col = 0, endFirst = 0, endSecond = 0;
-	if (!readForEdit(editionParameters, ' ', row, &endFirst) || !readForEdit(editionParameters + endFirst, ' ', col, &endSecond) && row >= 0 && col >= 0) 
+	int row = 0, col = 0, endFirst = 0, endOfReference = 0;
+	if (!readForEdit(editionParameters, row, col, endOfReference) && row >= 0 && col >= 0)
 	{
 		std::cout << "Something is wrong with the input data" << std::endl;
 	}
-	for (endSecond; editionParameters[endFirst+endSecond] == ' '; ++endSecond);
-	const char* newContent = editionParameters+endFirst + endSecond;
+	for (endOfReference; editionParameters[endOfReference] == ' '; ++endOfReference);
+	const char* newContent = editionParameters+endFirst + endOfReference;
 	table.edit(row-1, col-1, newContent);
 	std::cout << "The selected cell is changed successfully\n" << std::endl;
 }
@@ -80,6 +87,7 @@ void TableCommands::print()
 {
 	table.print();
 }
+
 
 void TableCommands::CSVWriter(std::fstream& writer)
 {

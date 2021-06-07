@@ -15,7 +15,9 @@ private:
 	virtual void close();
 	void print();
 
+	
 	void CSVWriter(std::fstream& writer);
 	bool CSVReader();
+public:
 };
 
