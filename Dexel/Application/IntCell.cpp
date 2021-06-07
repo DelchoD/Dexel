@@ -3,10 +3,11 @@
 IntCell::IntCell(const char* _cellContent):Cell(_cellContent)
 {
 	size_t index = 0;
-	for (cellContent; cellContent[index] != ' ' && cellContent[index] != '\0'; ++cellContent);
-	*cellContent = '\0';
+	/*for (cellContent; cellContent[index] != ' ' && cellContent[index] != '\0'; ++cellContent);
+	cellContent[index] = '\0';*/
 
-	cellValueAsInt = parseInt(cellContent);
+	//cellValueAsInt = parseInt(cellContent);
+	cellValueAsInt = atoi(cellContent);
 }
 
 //void IntCell::writeToFile(std::fstream& writer)

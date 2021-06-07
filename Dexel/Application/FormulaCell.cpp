@@ -5,14 +5,14 @@
 #include <iomanip>
 #include <fstream>
 FormulaCell::FormulaCell(const char* _cellContent, const TableInterface* transfer)
-	: Cell(_cellContent), tabletranfer(transfer),rowFirstCell(-1),columnFirstCell(-1),rowSecondCell(-1),columnSecondCell(-1)
+	: Cell(_cellContent), tabletranfer(transfer),rowFirstCell(-1),columnFirstCell(-1),rowSecondCell(-1),columnSecondCell(-1), constantOne(0),constantTwo(0)
 {
 	char* parser = cellContent+1;
-	for (parser; *parser != ' '; ++parser);
-	*parser = '\0';
+	/*for (parser; *parser != ' '; ++parser);
+	*parser = '\0';*/
 
 	int end = 0;
-	for (; *parser == ' '; ++parser);
+	for (parser; *parser == ' '; ++parser);
 	if (*parser == 'R') 
 	{
 		readCell(parser, end, rowFirstCell, columnFirstCell);
@@ -24,13 +24,13 @@ FormulaCell::FormulaCell(const char* _cellContent, const TableInterface* transfe
 
 	parser += end;
 
-	for (; !isOperator(*parser); parser++);
+	for (parser; !isOperator(*parser); parser++);
 	sign = *parser;
 
-	for (; *parser == ' '; ++parser);
+	for (++parser; *parser == ' '; ++parser);
 	if (*parser == 'R')
 	{
-		readCell(parser, end, rowSecondCell, columnFirstCell);
+		readCell(parser, end, rowSecondCell, columnSecondCell);
 	}
 	else
 	{
@@ -99,13 +99,13 @@ void FormulaCell::writeToFile(std::fstream& writer) const
 	}
 }
 
-double FormulaCell::readConstant(const char* reader, int& end) const
+double FormulaCell::readConstant(const char* parser, int& end) const
 {
 	char buffer[1024];
 	size_t index = 0;
-	for (index; !isOperator(reader[index]); index++) 
+	for (index; parser[index] != '\0' &&(index==0|| !isOperator(parser[index])); index++)
 	{
-		buffer[index] = reader[index];
+		buffer[index] = parser[index];
 	}
 	buffer[index] = '\0';
 	end = index - 1;
@@ -113,8 +113,12 @@ double FormulaCell::readConstant(const char* reader, int& end) const
 	switch (findCellType(buffer)) 
 	{
 	case TypeOfCell::Integer:
+		for (index = 0; buffer[index] != ' ' && buffer[index] != '\0'; ++index);
+		buffer[index] = '\0';
 		return parseInt(buffer);
 	case TypeOfCell::Double:
+		for (index = 0; buffer[index] != ' ' && buffer[index] != '\0'; ++index);
+		buffer[index] = '\0';
 		return parseDouble(buffer);
 	case TypeOfCell::String:
 		return 0;

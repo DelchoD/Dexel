@@ -6,12 +6,12 @@ class TableCommands : public Commands
 private:
 	Table table;
 
-	bool parseRead(char* command, const char* arguments);
-	bool open(const char* fileLocation);
-	bool save();
+	virtual bool parseRead(const char* command, const char* arguments);
+	virtual bool open(const char* fileLocation);
+	virtual bool save();
 	//void newCommand();
-	bool saveAs(const char* fileLocation);
-	void edit(const char* editionParameters);
+	virtual bool saveAs(const char* fileLocation);
+	virtual void edit(const char* editionParameters);
 	virtual void close();
 	void print();
 
