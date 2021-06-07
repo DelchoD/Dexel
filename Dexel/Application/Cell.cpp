@@ -25,14 +25,19 @@ Cell& Cell::operator=(Cell& rhs)
 }
 
 
-void Cell::writeToFile(std::fstream& writer)
+void Cell::writeToFile(std::fstream& writer) const
 {
 	//writer << cellContent;
 }
 
-void Cell::print()
+void Cell::print(int cellWidth) const
 {
-	std::cout << cellContent;
+	std::cout <<std::setw(cellWidth)<< cellContent;
+}
+
+int Cell::getCellLength() const
+{
+	return strlen(cellContent);
 }
 
 Cell::~Cell()
