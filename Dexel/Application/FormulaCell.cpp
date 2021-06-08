@@ -8,12 +8,10 @@ FormulaCell::FormulaCell(const char* _cellContent, const TableInterface* transfe
 	: Cell(_cellContent), tabletranfer(transfer),rowFirstCell(-1),columnFirstCell(-1),rowSecondCell(-1),columnSecondCell(-1), constantOne(0),constantTwo(0)
 {
 	char* parser = cellContent+1;
-	/*for (parser; *parser != ' '; ++parser);
-	*parser = '\0';*/
-
+	
 	int end = 0;
 	for (parser; *parser == ' '; ++parser);
-	if (*parser == 'R') 
+	if (((*parser) >= 'a' && (*parser) <= 'z') || ((*parser) >= 'A' && (*parser) <= 'Z'))
 	{
 		readCell(parser, end, rowFirstCell, columnFirstCell);
 	}
@@ -27,8 +25,8 @@ FormulaCell::FormulaCell(const char* _cellContent, const TableInterface* transfe
 	for (parser; !isOperator(*parser); parser++);
 	sign = *parser;
 
-	for (++parser; *parser == ' '; ++parser);
-	if (*parser == 'R')
+	for (++parser; *parser == ' '; ++parser);//implement with excel like reference
+	if (((*parser) >= 'a' && (*parser)<='z')||( (*parser) >= 'A' && (*parser) <= 'Z'))
 	{
 		readCell(parser, end, rowSecondCell, columnSecondCell);
 	}
@@ -68,19 +66,24 @@ double FormulaCell::examine()const
 void FormulaCell::readCell(const char* string, int& end, int& rowIndex, int& columnIndex)
 {
 	int row = 0, col = 0;
-	int index = 1;
-	for (; string[index] != 'C' && string[index] != '\0'; index++) 
+	int index = 0;
+	//reading column index
+	if (string[index]>='A'&&string[index]<='Z')
+	{
+		col = string[index] - '@';
+	}
+	else if (string[index] >= 'a' && string[index] <= 'z')
+	{
+		col = string[index] - '`';
+	}
+
+	for (++index; isDigit(string[index]) && string[index] != '\0'; index++) 
 	{
 		row *= 10;
 		row += string[index] - '0';
 	}
-	for (++index; isDigit(string[index]) && string[index] != '\0'; index++) 
-	{
-		col *= 10;
-		col += string[index] - '0';
-	}
-	rowIndex = row;
-	columnIndex = col;
+	rowIndex = col-1;
+	columnIndex = row-1;
 	end = index;
 }
 
@@ -134,7 +137,7 @@ CellInterface* FormulaCell::getCell(int rowIndex, int columnIndex) const
 
 void FormulaCell::print(int cellWidth)const
 {
-	CellInterface* cellTwo = getCell(rowSecondCell, columnSecondCell);
+	CellInterface* cellTwo = getCell(rowSecondCell,columnSecondCell);
 	double checkForNULL = (cellTwo != NULL) ? cellTwo->examine() : constantTwo;
 	//double checkForNULL = tabletranfer->getCell(rowSecondCell - 1, columnSecondCell - 1)->examine();
 	if (sign == '/' && checkForNULL == 0)

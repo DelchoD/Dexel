@@ -50,8 +50,8 @@ bool readForEdit(const char* editionValues, int& row, int& column, int& endRef)
 	{
 		rowT = editionValues[index] - '0';;
 	}
-	row = rowT;
-	column = columnT;
+	row = columnT;
+	column = rowT;
 	endRef = 2;
 	return true;
 }
@@ -70,7 +70,7 @@ bool IsTableRowIndex(char symbol)
 }
 bool IsNumber(char symbol)
 {
-	if ((symbol >= 'a' && symbol <= 'z') || (symbol >= 'A' && symbol <= 'Z'))
+	if (symbol >= '0' && symbol <= '9')
 	{
 		return true;
 	}
