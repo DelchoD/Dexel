@@ -19,7 +19,9 @@ bool Commands::open(const char* fileLocation)
 	}
 	activeFilePath = new char[strlen(fileLocation)];
 	strcpy(activeFilePath, fileLocation);
+	//this->close();
 	isFileOpened = true;
+	
 	return true;
 }
 

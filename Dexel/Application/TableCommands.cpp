@@ -25,6 +25,10 @@ bool TableCommands::open(const char* fileLocation)
 	{
 		return false;
 	}
+	if (!isRestarted)
+	{
+		std::cout << "Successfully opened " << fileLocation << "\n";
+	}
 	return CSVReader();
 }
 
@@ -36,6 +40,7 @@ bool TableCommands::save()
 		return false;
 	}
 	table.restart();
+	isRestarted = true;
 	return open(activeFilePath);
 }
 
@@ -87,7 +92,6 @@ void TableCommands::print()
 {
 	table.print();
 }
-
 
 void TableCommands::CSVWriter(std::fstream& writer)
 {

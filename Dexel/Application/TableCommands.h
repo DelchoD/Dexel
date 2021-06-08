@@ -5,6 +5,7 @@ class TableCommands : public Commands
 {
 private:
 	Table table;
+	bool isRestarted=false;
 
 	virtual bool parseRead(const char* command, const char* arguments);
 	virtual bool open(const char* fileLocation);
@@ -15,7 +16,6 @@ private:
 	virtual void close();
 	void print();
 
-	
 	void CSVWriter(std::fstream& writer);
 	bool CSVReader();
 public:
