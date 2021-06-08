@@ -5,7 +5,7 @@
 class Table;
 class Row
 {
-private:
+protected:
 	std::vector<Cell*> cellsPerRow;
 	TableInterface* transfer;
 	bool readRow(const char *source, char *buffer,int* length=nullptr)const;

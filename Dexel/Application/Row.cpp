@@ -79,11 +79,16 @@ Cell* Row::getCell(int columnIndex) const
 
 void Row::print() const
 {
-	for (size_t i = 0; i < cellsPerRow.size(); i++)
+	for (size_t i = 0; i <= cellsPerRow.size(); i++)
 	{
+		if (i==cellsPerRow.size())
+		{
+			std::cout << " |";
+			break;
+		}
 		if (i != 0)
 		{
-			std::cout << ", ";
+			std::cout << " |";
 		}
 		cellsPerRow[i]->print(transfer->getColumnWidth((int)i));
 	}

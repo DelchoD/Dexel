@@ -3,9 +3,10 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <iomanip>
 void Table::setColumnWidth()
 {
-	int maxRowLen = 0;
+	int maxRowLen = getMaximunCellsPerRow();
 
 	for (int i = 0; i < tableRows.size(); i++)
 	{
@@ -37,8 +38,24 @@ void Table::setColumnWidth()
 }
 void Table::print() const
 {
+	int maxRowLen = getMaximunCellsPerRow();
+
+	for (size_t i = 0; i <= maxRowLen; i++)
+	{
+		if (i<maxRowLen)
+		{
+			std::cout << "  |" << (char)('A' + i) << std::setw(columnWidths[i] - 2) << " ";
+		}
+		else
+		{
+			std::cout << "  |" << (char)(' ') << std::setw(columnWidths[i] - 2) << " ";
+		}
+	}
+
+	std::cout << "\n";
 	for (size_t i = 0; i < tableRows.size(); i++)
 	{
+		std::cout << (i + 1) << " |";
 		tableRows[i].print();
 	}
 }
@@ -82,4 +99,18 @@ bool Table::parseFromFile(std::istream& reader)  //can convert from fstream to i
 int Table::getColumnWidth(int columnIndex) const
 {
 	return columnWidths[columnIndex];
+}
+
+int Table::getMaximunCellsPerRow() const
+{
+	int maxRowLen = 0;
+	for (int i = 0; i < tableRows.size(); i++)
+	{
+		int rowCells = tableRows[i].getNumberOfCellsPerRow();
+		if (maxRowLen < rowCells)
+		{
+			maxRowLen = rowCells;
+		}
+	}
+	return maxRowLen;
 }

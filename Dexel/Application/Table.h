@@ -18,5 +18,6 @@ public:
 	CellInterface* getCell(int row, int col) const;
 	bool parseFromFile(std::istream& reader); //check this twice
 	int getColumnWidth(int columnIndex) const;
+	int getMaximunCellsPerRow() const;
 };
 
