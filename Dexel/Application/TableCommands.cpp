@@ -66,15 +66,15 @@ bool TableCommands::saveAs(const char* fileLocation)
 
 void TableCommands::edit(const char* editionParameters)
 {
-	int row = 0, col = 0, endFirst = 0, endOfReference = 0;
+	int row = 0, col = 0, endOfReference = 0;
 	if (!readForEdit(editionParameters, row, col, endOfReference) && row >= 0 && col >= 0)
 	{
 		std::cout << "Something is wrong with the input data" << std::endl;
 	}
 	for (endOfReference; editionParameters[endOfReference] == ' '; ++endOfReference);
-	const char* newContent = editionParameters+endFirst + endOfReference;
+	const char* newContent = editionParameters + endOfReference;
 	table.edit(row-1, col-1, newContent);
-	std::cout << "The selected cell is changed successfully\n" << std::endl;
+	std::cout << "The selected cell is changed successfully to " <<newContent<<"\n" << std::endl;
 }
 
 void TableCommands::close()

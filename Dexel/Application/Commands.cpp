@@ -102,10 +102,15 @@ void Commands::parsingFromFile()
 	parser = true;
 	char command[6];
 	char arguments[512];
+	char buffer[6];
+	char* tempCommand;
 	while (parser)
 	{
 		std::cout << "Please enter your command: ";
-		std::cin >> command;
+		std::cin >> buffer;
+		std::string temp(lowerred(buffer));
+		char* tempCommand = &temp[0];
+		strcpy(command, tempCommand);
 		if (!((strcmp(command,"print")==0)||(strcmp(command, "help") == 0) || (strcmp(command, "close") == 0) || (strcmp(command, "save") == 0) || (strcmp(command, "exit") == 0)))
 		{
 			std::cin.ignore();

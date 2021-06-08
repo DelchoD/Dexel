@@ -11,14 +11,14 @@ char converToLower(char symbol)
         return symbol;
     }
 }
-const char* lowerred(const char* _stringToLower)
+std::string lowerred(const char* _stringToLower)
 {
-	std::string stringToLower = stringToLower.c_str();
+	std::string stringToLower = _stringToLower;
 	for (std::string::iterator i = stringToLower.begin(); i != stringToLower.end(); i++)
 	{
 		*i = converToLower(*i);
 	}
-	return stringToLower.c_str();
+	return stringToLower;
 }
 bool readForEdit(const char* editionValues, int& row, int& column, int& endRef)
 {
