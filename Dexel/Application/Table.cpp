@@ -62,7 +62,7 @@ void Table::print() const
 
 void Table::edit(int rowIndex, int columnIndex, const char* newContent)
 {
-	tableRows[rowIndex].setCell(columnIndex, newContent);
+	tableRows.at(rowIndex).setCell(columnIndex, newContent);
 }
 
 void Table::restart()

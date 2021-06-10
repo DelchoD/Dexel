@@ -25,7 +25,7 @@ bool readForEdit(const char* editionValues, int& row, int& column, int& endRef)
 	int index = 0;
 	for (index; editionValues[index] == ' '; ++index);
 	bool sign = true;
-	if (editionValues[index] == '-') 
+	if (editionValues[index] == '-')
 	{
 		++index;
 		sign = false;
@@ -33,26 +33,32 @@ bool readForEdit(const char* editionValues, int& row, int& column, int& endRef)
 	int columnT{}, rowT{};
 	if (IsTableRowIndex(editionValues[index]))
 	{
-		if (editionValues[index]>='a'&&editionValues[index]<='z')
+		if (editionValues[index] >= 'a' && editionValues[index] <= 'z')
 		{
 			columnT = editionValues[index] - '`';
 		}
 		else if (editionValues[index] >= 'A' && editionValues[index] <= 'Z')
 		{
 			columnT = editionValues[index] - '@';
-		}	
+		}
 	}
-	else 
+	else
 	{
 		return false;
 	}
-	if (IsNumber(editionValues[index++]))
+	int lengthOfNumber = 0;
+	index++;
+
+	while (IsNumber(editionValues[index]))
 	{
-		rowT = editionValues[index] - '0';;
+		rowT = (rowT * 10);
+		rowT += editionValues[index] - '0';
+		lengthOfNumber++;
+		index++;
 	}
 	row = rowT;
 	column = columnT;
-	endRef = 2;
+	endRef = lengthOfNumber+1;
 	return true;
 }
 
@@ -70,8 +76,5 @@ bool IsTableRowIndex(char symbol)
 }
 bool IsNumber(char symbol)
 {
-	if (symbol >= '0' && symbol <= '9')
-	{
-		return true;
-	}
+	return (symbol >= '1' && symbol <= '9');
 }

@@ -40,7 +40,11 @@ bool TableCommands::open(const char* fileLocation)
 	{
 		std::cout << "Successfully opened " << fileLocation << "\n";
 	}
-	return CSVReader();
+	if (!CSVReader())
+	{
+		std::cout << "There is a problem with reading the file\n";
+	}
+	//return CSVReader();
 }
 
 bool TableCommands::save()
@@ -83,20 +87,33 @@ bool TableCommands::saveAs(const char* fileLocation)
 void TableCommands::edit(const char* editionParameters)
 {
 	int row = 0, col = 0, endOfReference = 0;
+	bool isSuccessfull = false;
 	if (!readForEdit(editionParameters, row, col, endOfReference) && row >= 0 && col >= 0)
 	{
 		std::cout << "Something is wrong with the input data" << std::endl;
 	}
+
 	for (endOfReference; editionParameters[endOfReference] == ' '; ++endOfReference);
 	const char* newContent = editionParameters + endOfReference;
-	table.edit(row-1, col-1, newContent);
-	std::cout << "The selected cell is changed successfully to " <<newContent<<"\n" << std::endl;
+
+	try
+	{
+		table.edit(row - 1, col - 1, newContent);
+		std::cout << "The selected cell is changed successfully to " << newContent << "\n" << std::endl;
+		isSuccessfull = true;
+	}
+	catch (const std::out_of_range& e)
+	{
+		std::cout << "The cell can not be edited please check the row and column indexes and try again\n";
+		Commands::parsingFromFile();
+	}
 }
 
 void TableCommands::close()
 {
 	Commands::close();
 	table.restart();
+
 }
 
 void TableCommands::print()
