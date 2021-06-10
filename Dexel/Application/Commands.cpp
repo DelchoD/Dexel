@@ -13,7 +13,7 @@ bool Commands::open(const char* fileLocation)
 	activeFile.open(fileLocation);
 	if (activeFile.fail())
 	{
-		std::cerr << "There is a problem in opening the file, please try again in a few seconds!\n";
+		std::cerr << "There is a problem in opening the file or it does not exist, please try again in a few seconds!\n";
 		activeFile.clear();
 		return false;
 	}
@@ -31,10 +31,16 @@ void Commands::close()
 	{
 		activeFile.close();
 		std::cout << "File is closed successfully\n" << std::endl;
+		isFileOpened = false;
+		//delete[] activeFilePath;
 		return;
 	}
-	isFileOpened = false;
 	std::cout << "There is problem in closing the file, please try again\n";
+}
+
+void Commands::newCommand()
+{
+	//this->open("temp.txt");
 }
 
 void Commands::exit()
@@ -61,7 +67,27 @@ bool Commands::parseRead(const char* command, const char* arguments)
 	//switch can be used with integral or enum types
 	if (strcmp(command,"open")==0)
 	{
-		this->open(arguments);
+		if (isFileOpened)
+		{
+			std::cout << "There is another file opened, do you want to save the changes up to the moment?\n";
+			std::cout << "Enter yes or no: ";
+			char answer[5]{};
+			std::cin >> answer;
+			if (strcmp(answer, "yes") == 0)
+			{
+				this->save();
+				this->close();
+			}
+			else if (strcmp(answer, "no") == 0)
+			{
+				this->close();
+			}
+		}
+		else
+		{
+			this->open(arguments);
+		}
+		
 	}
 	else if (strcmp(command, "exit") == 0)
 	{
@@ -148,10 +174,6 @@ void Commands::parsingFromFile()
 			}
 		}
 		
-		
-
-		
-
 		if (!parseRead(command, arguments))
 		{
 			std::cout << "The command you have entered is not supported yet, to find commands compatible with this version type help\n";
