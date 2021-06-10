@@ -50,8 +50,8 @@ bool readForEdit(const char* editionValues, int& row, int& column, int& endRef)
 	{
 		rowT = editionValues[index] - '0';;
 	}
-	row = columnT;
-	column = rowT;
+	row = rowT;
+	column = columnT;
 	endRef = 2;
 	return true;
 }

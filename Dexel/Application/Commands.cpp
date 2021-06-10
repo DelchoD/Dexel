@@ -109,16 +109,22 @@ void Commands::parsingFromFile()
 	while (parser)
 	{
 		std::cout << "Please enter your command: ";
+		std::cin >> std::ws;
 		std::cin >> buffer;
 		std::string temp(lowerred(buffer));
 		char* tempCommand = &temp[0];
 		strcpy(command, tempCommand);
+
 		if (!((strcmp(command,"print")==0)||(strcmp(command, "help") == 0) || (strcmp(command, "close") == 0) || (strcmp(command, "save") == 0) || (strcmp(command, "exit") == 0)))
 		{
-			std::cin.ignore();
+			
+			std::cin >> std::ws;
 		}
-
-		std::cin.getline(arguments,511);
+		else
+		{
+			//std::cin.ignore();
+		}
+		std::cin.getline(arguments, 511);
 		if (!parseRead(command, arguments))
 		{
 			std::cout << "The command you have entered is not supported yet, to find commands compatible with this version type help\n";
