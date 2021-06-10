@@ -80,23 +80,18 @@ bool TableCommands::save()
 
 void TableCommands::newCommand()
 {
-	if (!CSVReader())
+	return table.restart();
+
+	/*if (!CSVReader())
 	{
 		std::cout << "There is a problem with reading the file\n";
-	}
+	}*/
 }
 
 bool TableCommands::saveAs(const char* fileLocation)
 {
 	std::fstream tempFile;
-	if (strcmp(fileLocation, activeFilePath)==0)
-	{
-		tempFile.open(fileLocation, std::ios::trunc | std::ios::out);
-	}
-	else
-	{
-		tempFile.open(fileLocation, std::ios::trunc | std::ios::out);
-	}
+	tempFile.open(fileLocation, std::ios::trunc | std::ios::out);
 
 	if (tempFile.fail())
 	{
