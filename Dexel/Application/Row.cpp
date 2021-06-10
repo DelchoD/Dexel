@@ -23,7 +23,7 @@ bool Row::readRow(const char *source, char *buffer, int* length) const
 
 	buffer[index] = '\0';
 	*length = source[index] == ',' ? (int)(index + 1) : (int)(index);
-	*length = (int)(++index);
+	//*length = (int)(++index);
 
 	return true;
 }
