@@ -3,12 +3,23 @@
 
 bool TableCommands::parseRead(const char* command, const char* arguments)
 {
+
 	if (strcmp(command,"print")==0)
 	{
+		if (!activeFile.is_open())
+		{
+			std::cout << "There is no file opened, please open one\n";
+			return true;
+		}
 		this->print();
 	}
 	else if (strcmp(command, "edit")==0)
 	{
+		if (!activeFile.is_open())
+		{
+			std::cout << "There is no file opened, please open one\n";
+			return true;
+		}
 		this->edit(arguments);
 	}
 	else

@@ -77,10 +77,20 @@ bool Commands::parseRead(const char* command, const char* arguments)
 	}
 	else if (strcmp(command, "save") == 0)
 	{
+		if (!activeFile.is_open())
+		{
+			std::cout << "There is no file opened, please open one\n";
+			return true;
+		}
 		this->save();
 	}
 	else if (strcmp(command, "saveas") == 0)
 	{
+		if (!activeFile.is_open())
+		{
+			std::cout << "There is no file opened, please open one\n";
+			return true;
+		}
 		this->saveAs(arguments);
 	}
 	else
@@ -118,13 +128,30 @@ void Commands::parsingFromFile()
 		if (!((strcmp(command,"print")==0)||(strcmp(command, "help") == 0) || (strcmp(command, "close") == 0) || (strcmp(command, "save") == 0) || (strcmp(command, "exit") == 0)))
 		{
 			
-			std::cin >> std::ws;
 		}
-		else
+		if (((strcmp(command, "print") == 0) || (strcmp(command, "help") == 0) || (strcmp(command, "close") == 0) || (strcmp(command, "save") == 0) || (strcmp(command, "exit") == 0)))
 		{
-			//std::cin.ignore();
+			arguments[0]='\0';
 		}
-		std::cin.getline(arguments, 511);
+		else if(((strcmp(command, "open") == 0) || (strcmp(command, "saveas") == 0) || (strcmp(command, "edit") == 0)))
+		{
+			std::cin >> std::ws;
+			std::cin.getline(arguments, 511);
+			if (arguments[0] == '"')
+			{
+				size_t i = 0;
+				for (i; arguments[i] != '\0'; i++)
+				{
+					arguments[i] = arguments[i + 1];
+				}
+				arguments[i - 2] = '\0';
+			}
+		}
+		
+		
+
+		
+
 		if (!parseRead(command, arguments))
 		{
 			std::cout << "The command you have entered is not supported yet, to find commands compatible with this version type help\n";
