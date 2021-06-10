@@ -73,5 +73,12 @@ public:
 	 * @return Number of cells of the longest row
 	*/
 	int getMaximunCellsPerRow() const;
+	/**
+	* Function for checking if the table is empty
+	 * @brief With this function we can check if out table has no content
+	 * @return True is there is nothing in the table and false if not
+	*/
+	bool isEmpty();
+
 };
 

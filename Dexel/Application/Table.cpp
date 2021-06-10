@@ -114,3 +114,8 @@ int Table::getMaximunCellsPerRow() const
 	}
 	return maxRowLen;
 }
+
+bool Table::isEmpty()
+{
+	return tableRows.empty();
+}

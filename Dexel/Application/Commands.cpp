@@ -20,14 +20,14 @@ bool Commands::open(const char* fileLocation)
 	activeFilePath = new char[strlen(fileLocation)];
 	strcpy(activeFilePath, fileLocation);
 	//this->close();
-	isFileOpened = true;
+	//isFileOpened = true;
 	
 	return true;
 }
 
 void Commands::close()
 {
-	if (isFileOpened)
+	//if (activeFile.is_open())
 	{
 		activeFile.close();
 		std::cout << "File is closed successfully\n" << std::endl;
@@ -66,31 +66,13 @@ bool Commands::parseRead(const char* command, const char* arguments)
 {
 	//switch can be used with integral or enum types
 	if (strcmp(command,"open")==0)
-	{
-		if (isFileOpened)
-		{
-			std::cout << "There is another file opened, do you want to save the changes up to the moment?\n";
-			std::cout << "Enter yes or no: ";
-			char answer[5]{};
-			std::cin >> answer;
-			if (strcmp(answer, "yes") == 0)
-			{
-				this->save();
-				this->close();
-			}
-			else if (strcmp(answer, "no") == 0)
-			{
-				this->close();
-			}
-		}
-		else
-		{
-			this->open(arguments);
-		}
-		
+	{	
+		this->open(arguments);
 	}
 	else if (strcmp(command, "exit") == 0)
 	{
+		std::cout << "Exiting.....\n";
+		std::cout << "The program has closed now you are ready to go\n";
 		this->exit();
 	}
 	else if (strcmp(command, "close") == 0)
@@ -103,20 +85,10 @@ bool Commands::parseRead(const char* command, const char* arguments)
 	}
 	else if (strcmp(command, "save") == 0)
 	{
-		if (!activeFile.is_open())
-		{
-			std::cout << "There is no file opened, please open one\n";
-			return true;
-		}
 		this->save();
 	}
 	else if (strcmp(command, "saveas") == 0)
 	{
-		if (!activeFile.is_open())
-		{
-			std::cout << "There is no file opened, please open one\n";
-			return true;
-		}
 		this->saveAs(arguments);
 	}
 	else
@@ -141,7 +113,7 @@ void Commands::parsingFromFile()
 	char command[6];
 	char arguments[512];
 	char buffer[6];
-	char* tempCommand;
+	char* tempCommand{};
 	while (parser)
 	{
 		std::cout << "Please enter your command: ";
@@ -150,12 +122,9 @@ void Commands::parsingFromFile()
 		std::string temp(lowerred(buffer));
 		char* tempCommand = &temp[0];
 		strcpy(command, tempCommand);
-
-		if (!((strcmp(command,"print")==0)||(strcmp(command, "help") == 0) || (strcmp(command, "close") == 0) || (strcmp(command, "save") == 0) || (strcmp(command, "exit") == 0)))
-		{
-			
-		}
-		if (((strcmp(command, "print") == 0) || (strcmp(command, "help") == 0) || (strcmp(command, "close") == 0) || (strcmp(command, "save") == 0) || (strcmp(command, "exit") == 0)))
+	
+		if (((strcmp(command, "print") == 0) || (strcmp(command, "help") == 0) || (strcmp(command, "close") == 0) || 
+			(strcmp(command, "save") == 0) || (strcmp(command, "exit") == 0) || (strcmp(command, "new") == 0)))
 		{
 			arguments[0]='\0';
 		}
@@ -179,4 +148,5 @@ void Commands::parsingFromFile()
 			std::cout << "The command you have entered is not supported yet, to find commands compatible with this version type help\n";
 		}
 	}
+
 }

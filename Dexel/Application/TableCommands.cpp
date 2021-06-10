@@ -6,21 +6,23 @@ bool TableCommands::parseRead(const char* command, const char* arguments)
 
 	if (strcmp(command,"print")==0)
 	{
-		if (!activeFile.is_open())
+		if (!table.isEmpty())
 		{
-			std::cout << "There is no file opened, please open one\n";
-			return true;
+			this->print();
 		}
-		this->print();
+		else
+		{
+			std::cout << "There is no table loaded in the program\n";
+		}
 	}
 	else if (strcmp(command, "edit")==0)
 	{
-		if (!activeFile.is_open())
-		{
-			std::cout << "There is no file opened, please open one\n";
-			return true;
-		}
+
 		this->edit(arguments);
+	}
+	else if (strcmp(command, "new") == 0)
+	{
+		this->newCommand();
 	}
 	else
 	{
@@ -32,6 +34,22 @@ bool TableCommands::parseRead(const char* command, const char* arguments)
 
 bool TableCommands::open(const char* fileLocation)
 {
+	if (!table.isEmpty())
+	{
+		std::cout << "There is another file opened, do you want to save the changes up to the moment?\n";
+		std::cout << "Enter yes or no: ";
+		char answer[5]{};
+		std::cin >> answer;
+		if (strcmp(answer, "yes") == 0)
+		{
+			this->saveAs(activeFilePath);
+			this->close();
+		}
+		else if (strcmp(answer, "no") == 0)
+		{
+			this->close();
+		}
+	}
 	if (!Commands::open(fileLocation))
 	{
 		return false;
@@ -44,12 +62,13 @@ bool TableCommands::open(const char* fileLocation)
 	{
 		std::cout << "There is a problem with reading the file\n";
 	}
+	activeFile.close();
 	//return CSVReader();
 }
 
 bool TableCommands::save()
 {
-	activeFile.close();
+	//activeFile.close();
 	if (!saveAs(activeFilePath)) 
 	{
 		return false;
@@ -57,6 +76,14 @@ bool TableCommands::save()
 	table.restart();
 	isRestarted = true;
 	return open(activeFilePath);
+}
+
+void TableCommands::newCommand()
+{
+	if (!CSVReader())
+	{
+		std::cout << "There is a problem with reading the file\n";
+	}
 }
 
 bool TableCommands::saveAs(const char* fileLocation)
@@ -102,7 +129,7 @@ void TableCommands::edit(const char* editionParameters)
 		std::cout << "The selected cell is changed successfully to " << newContent << "\n" << std::endl;
 		isSuccessfull = true;
 	}
-	catch (const std::out_of_range& e)
+	catch (const std::out_of_range&)
 	{
 		std::cout << "The cell can not be edited please check the row and column indexes and try again\n";
 		Commands::parsingFromFile();

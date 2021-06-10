@@ -36,7 +36,7 @@ private:
 	 * @return True is the file is saved successfully and false if not
 	*/
 	virtual bool save();
-	//void newCommand();
+	virtual void newCommand();
 	/**
 	* Virtual function for saving a file to a new location or name
 	 * @brief With this function we can save the file to a selected location
