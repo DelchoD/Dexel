@@ -1,16 +1,18 @@
 #include "StringCell.h"
-
+#include <fstream>
 StringCell::StringCell(const char* _cellContent):Cell(_cellContent)
 {
 }
 
-//void StringCell::writeToFile(std::fstream& writer)
-//{
-//}
-//
-//void StringCell::print()
-//{
-//}
+void StringCell::writeToFile(std::fstream& writer)
+{
+    writer << cellContent;
+}
+
+void StringCell::print()
+{
+    std::cout << cellContent;
+}
 
 double StringCell::examine()const
 {

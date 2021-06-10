@@ -1,5 +1,5 @@
 #include "IntCell.h"
-
+#include <fstream>
 IntCell::IntCell(const char* _cellContent):Cell(_cellContent)
 {
 	size_t index = 0;
@@ -10,13 +10,15 @@ IntCell::IntCell(const char* _cellContent):Cell(_cellContent)
 	cellValueAsInt = atoi(cellContent);
 }
 
-//void IntCell::writeToFile(std::fstream& writer)
-//{
-//}
-//
-//void IntCell::print()
-//{
-//}
+void IntCell::writeToFile(std::fstream& writer)
+{
+	writer << cellValueAsInt;
+}
+
+void IntCell::print()
+{
+	std::cout << cellValueAsInt;
+}
 
 double IntCell::examine() const
 {

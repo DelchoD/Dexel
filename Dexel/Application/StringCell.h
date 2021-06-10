@@ -15,8 +15,8 @@ public:
 	 * @param _cellContent The value which is going to initialize the Cell
 	*/
 	StringCell(const char* _cellContent);
-	/*virtual void writeToFile(std::fstream& writer);
-	virtual void print();*/
+	virtual void writeToFile(std::fstream& writer);
+	virtual void print();
 
 	/**
 	* Virtual function to examine a cell
