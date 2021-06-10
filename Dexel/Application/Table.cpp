@@ -90,7 +90,16 @@ bool Table::parseFromFile(std::istream& reader)  //can convert from fstream to i
 	char temp[1024]{};
 	while (reader.getline(temp,(std::streamsize)1024))
 	{
-		tableRows.push_back(Row(temp,this));
+		try
+		{
+			tableRows.push_back(Row(temp, this));
+		}
+		catch (const std::exception& e)
+		{
+			std::cout <<"There is a problem with the input data on row " << (tableRows.size() + 1)<<"\n";
+			return false;
+		}
+		
 	}
 	setColumnWidth();
 	return true;

@@ -54,13 +54,14 @@ bool TableCommands::open(const char* fileLocation)
 	{
 		return false;
 	}
-	if (!isRestarted)
-	{
-		std::cout << "Successfully opened " << fileLocation << "\n";
-	}
 	if (!CSVReader())
 	{
 		std::cout << "There is a problem with reading the file\n";
+		return false;
+	}
+	if (!isRestarted)
+	{
+		std::cout << "Successfully opened " << fileLocation << "\n";
 	}
 	activeFile.close();
 	//return CSVReader();
@@ -81,11 +82,6 @@ bool TableCommands::save()
 void TableCommands::newCommand()
 {
 	return table.restart();
-
-	/*if (!CSVReader())
-	{
-		std::cout << "There is a problem with reading the file\n";
-	}*/
 }
 
 bool TableCommands::saveAs(const char* fileLocation)

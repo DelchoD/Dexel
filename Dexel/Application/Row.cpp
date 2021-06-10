@@ -5,6 +5,7 @@
 #include "FormulaCell.h"
 #include "CellUtils.h"
 #include "Table.h"
+
 #include <fstream>
 #include <cstring>
 bool Row::readRow(const char *source, char *buffer, int* length) const
@@ -141,7 +142,8 @@ Cell* Row::createCell(const char *cellCont) const
 	case TypeOfCell::Empty:
 		return new StringCell(parser);
 	case TypeOfCell::Unknown:
-		return new StringCell("ERROR");
+		throw std::invalid_argument("");
+		
 	default:
 		break;
 	}
