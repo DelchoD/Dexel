@@ -19,7 +19,7 @@ enum class TypeOfCell
  * @param _cellContent The string which we use for identifying
  * @return Object from type TypeOfCell
 */
-TypeOfCell findCellType(const char* _cellContent);
+TypeOfCell findCellType(char* _cellContent);
 /**
 * Function for removing the white spaces
  * @brief With this function we can remove the whitespaces at the end int the begging

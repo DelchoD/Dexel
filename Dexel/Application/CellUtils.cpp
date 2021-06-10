@@ -1,13 +1,13 @@
 #include "CellUtils.h"
 #include <string>
-TypeOfCell findCellType(const char* _cellContent)
+TypeOfCell findCellType(char* _cellContent)
 {
-	const char* temp = _cellContent;
+	char* temp = _cellContent;
 	bool integer = true, doubles = true;
 	short numberOfDecimals = 0;
 
 	//skipws is an alternative use it with sstream
-	for (temp; *temp == ' '; ++temp);
+	//for (temp; *temp == ' '; ++temp);
 
 	if (*temp == '=')
 	{
@@ -15,7 +15,11 @@ TypeOfCell findCellType(const char* _cellContent)
 	}
 	else if (*temp == '\0')
 	{
-		return TypeOfCell::String; //alternatively add Empty
+		return TypeOfCell::Empty; //alternatively add Empty
+	}
+	else if (*temp=='\"')
+	{
+		return TypeOfCell::String;
 	}
 	size_t index = ((temp[0] == '-' || temp[0] == '+') && temp[1] != '\0' && isDigit(temp[1])) ? 1 : 0;
 	
@@ -39,82 +43,7 @@ TypeOfCell findCellType(const char* _cellContent)
 			return TypeOfCell::Double;
 		}
 	}
-
-	return TypeOfCell::String;
-	{//else if (*temp == '+' || *temp == '-')
-	//{
-	//	if (!isDigit(temp[index + 1]))
-	//	{
-	//		return TypeOfCell::String; //add error
-	//	}
-	//	for (++index; isDigit(*temp) || *temp == '.'; ++temp)
-	//	{
-	//		if (*temp == '.')
-	//		{
-	//			integer = false;
-	//			numberOfDecimals++;
-	//		}
-	//		if (numberOfDecimals >= 2)
-	//		{
-	//			return TypeOfCell::String; //add error
-	//		}
-	//	}
-	//	if (numberOfDecimals==0)
-	//	{
-	//		doubles = false;
-	//	}
-	//	if (*temp!='\0')
-	//	{
-	//		for (++index; *temp == ' '; ++temp);
-	//	}
-	//		if (*temp == '\0')
-	//		{
-	//			if (integer)
-	//			{
-	//				return TypeOfCell::Integer;
-	//			}
-	//			else if (doubles)
-	//			{
-	//				return TypeOfCell::Double;
-	//			}
-	//		}
-	//}
-	//else if (*temp == '\"')
-	//{
-	//	++temp;
-	//	while (*temp!='\0'&&*temp!='\"')
-	//	{
-	//		++temp;
-	//	}
-	//	if (*temp=='\0')
-	//	{
-	//		return TypeOfCell::Unknown;
-	//	}
-	//	else
-	//	{
-	//		if (*temp=='\"')
-	//		{
-	//			++temp;
-	//			while (*temp == ' ')
-	//			{
-	//				++temp;
-	//			}
-	//			if (*temp=='\0')
-	//			{
-	//				return TypeOfCell::String;
-	//			}
-	//			else
-	//			{
-	//				return TypeOfCell::Unknown;
-	//			}
-	//		}
-	//	}
-	//}
-	//else
-	//{
-	//	return TypeOfCell::String;
-	//}
-	}
+	return TypeOfCell::Unknown;
 }
 
 std::string trim(std::string trimmedValue)

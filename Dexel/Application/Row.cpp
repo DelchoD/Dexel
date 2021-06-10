@@ -6,17 +6,21 @@
 #include "CellUtils.h"
 #include "Table.h"
 #include <fstream>
+#include <cstring>
 bool Row::readRow(const char *source, char *buffer, int* length) const
 {
 	size_t index = 0;
+
 	if (*source == '\0') 
 	{
 		return false;
 	}
+
 	for (index; source[index] != ',' && source[index] != '\0'; index++)
 	{
 		buffer[index] = source[index];
 	}
+
 	buffer[index] = '\0';
 	*length = source[index] == ',' ? (int)(index + 1) : (int)(index);
 	*length = (int)(++index);
@@ -119,23 +123,25 @@ void Row::setCell(int columnIndex, const char *_cellEditedContent)
 
 Cell* Row::createCell(const char *cellCont) const
 {
-	const char* parser = cellCont;
+	char* parser=const_cast<char*>(cellCont);
+
 	for (; *parser == ' '; ++parser);
+
 
 	switch (findCellType(parser))
 	{
 	case TypeOfCell::Integer:
 		return new IntCell(parser);
-		break;
 	case TypeOfCell::Double:
 		return new DoubleCell(parser);
-		break;
 	case TypeOfCell::String:
 		return new StringCell(parser);
-		break;
 	case TypeOfCell::Formula:
 		return new FormulaCell(parser,transfer);
-		break;
+	case TypeOfCell::Empty:
+		return new StringCell(parser);
+	case TypeOfCell::Unknown:
+		return new StringCell("ERROR");
 	default:
 		break;
 	}
