@@ -44,7 +44,7 @@ void Table::print() const
 	{
 		if (i<maxRowLen)
 		{
-			std::cout << "  |" << (char)('A' + i) << std::setw(columnWidths[i] - 2) << " ";
+			std::cout << "  |" << (char)('A' + i) << std::setw(columnWidths[i]+1) ;
 		}
 		else
 		{
