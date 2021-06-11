@@ -123,7 +123,7 @@ void TableCommands::edit(const char* editionParameters)
 	catch (const std::out_of_range&)
 	{
 		table.resize(row, col);
-		//table.edit(row - 1, col - 1, newContent);
+		table.edit(row - 1, col - 1, newContent);
 		std::cout << "The cell can not be edited please check the row and column indexes and try again\n";
 		//Commands::parsingFromFile();
 	}

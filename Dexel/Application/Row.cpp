@@ -151,9 +151,21 @@ Cell* Row::createCell(const char *cellCont) const
 
 void Row::resize(int columnTotal)
 {
+	int oldSize = cellsPerRow.size();
 	cellsPerRow.resize(columnTotal);
-	for (size_t i = cellsPerRow.size()-1-columnTotal; i < cellsPerRow.size(); i++)
+	size_t i = (oldSize) ? (cellsPerRow.size() - oldSize + 1) : 0;
+	for (i; i < cellsPerRow.size(); i++)
 	{
-		cellsPerRow[i] = createCell("");
+		cellsPerRow[i] = createCell(" ");
 	}
+}
+
+TableInterface* Row::getTransfer()
+{
+	return transfer;
+}
+
+void Row::setTransfer(TableInterface* rhs)
+{
+	transfer = rhs;
 }

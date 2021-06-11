@@ -101,7 +101,6 @@ bool Table::parseFromFile(std::istream& reader)  //can convert from fstream to i
 			Table::restart();
 			return false;
 		}
-		
 	}
 	setColumnWidth();
 	return true;
@@ -136,6 +135,15 @@ void Table::resize(int rowsTotal, int columnTotal)
 	tableRows.resize(rowsTotal);
 	for (size_t i = 0; i < tableRows.size(); i++)
 	{
-		tableRows.at(i).resize(columnTotal);
+		if (tableRows.at(i).getTransfer() != nullptr)
+		{
+			tableRows.at(i).resize(columnTotal);
+		}
+		else
+		{
+			tableRows.at(i).setTransfer(tableRows.at(i - 1).getTransfer());
+			tableRows.at(i).resize(columnTotal);
+		}
+		
 	}
 }

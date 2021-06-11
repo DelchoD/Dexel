@@ -91,5 +91,7 @@ public:
 	*/
 	void setCell(int columnIndex, const char *_cellEditedContent);
 	void resize(int columnTotal);
+	TableInterface* getTransfer();
+	void setTransfer(TableInterface* rhs);
 };
 
