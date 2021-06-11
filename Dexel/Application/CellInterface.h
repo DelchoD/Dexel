@@ -18,6 +18,6 @@ public:
 	 * @brief By this function we can get the length of the cell, no matter it's type
 	 * @return Int value - the width of the cell in decimal places
 	*/
-	virtual int getCellLength() const=0;
+	virtual int getCellLength() const = 0;
 };
 

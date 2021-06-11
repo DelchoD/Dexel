@@ -20,7 +20,7 @@ protected:
 	 * @param length The lenght of the read string up to the moment
 	 * @return True if the row is read successfully and false if not
 	*/
-	bool readRow(const char *source, char *buffer,int* length=nullptr)const;
+	bool readRow(const char* source, char* buffer, int* length = nullptr)const;
 
 	/**
 	* Function for creating single cell
@@ -43,7 +43,7 @@ public:
 	 * @param rowValue The value of the row we are going to initialize
 	 * @param _transfer The table which is associated with this row
 	*/
-	Row(char *rowValue, TableInterface* _transfer);
+	Row(char* rowValue, TableInterface* _transfer);
 
 	/**
 	* Row copy constructor
@@ -98,9 +98,9 @@ public:
 	* Function for setting a cell value
 	 * @brief With this function we can set a cell a different value
 	 * @param columnIndex Column index of the cell which we are going to edit
-	 * @param _cellEditedContent New content of the selected cell 
+	 * @param _cellEditedContent New content of the selected cell
 	*/
-	void setCell(int columnIndex, const char *_cellEditedContent);
+	void setCell(int columnIndex, const char* _cellEditedContent);
 
 	/**
 	* Function for resizing the row

@@ -6,7 +6,7 @@
 	 */
 enum class TypeOfCell
 {
-	Unknown=-1,/**< Unknown type when we don't know nothing for the content */
+	Unknown = -1,/**< Unknown type when we don't know nothing for the content */
 	Integer,/**< Integer type representing an integer type cell */
 	Double,/**< Doubler type representing a double type cell */
 	String,/**< String type representing a string type cell */

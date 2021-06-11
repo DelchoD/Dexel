@@ -9,7 +9,7 @@ class TableCommands : public Commands
 {
 private:
 	Table table; /**< Value for storing the table */
-	bool isRestarted=false; /**< Value for storing the information if the table was restarted */
+	bool isRestarted = false; /**< Value for storing the information if the table was restarted */
 
 	/**
 	* Function for executing commands

@@ -33,7 +33,7 @@ public:
 	 * @param columnIndex The column index of the cell which we are going to edit
 	 * @param newContent The desired content of the cell to edit
 	*/
-	void edit(int rowIndex,int columnIndex, const char* newContent);
+	void edit(int rowIndex, int columnIndex, const char* newContent);
 
 	/**
 	* Re staring table function
@@ -50,7 +50,7 @@ public:
 
 	/**
 	* Function for getting a cell address
-	 * @brief With this function we can get the ad?ress of a cell by it's row and column index
+	 * @brief With this function we can get the address of a cell by it's row and column index
 	 * @param row The index of the row for our cell
 	 * @param col The index of the column for our cell
 	 * @see TableInterface class

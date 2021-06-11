@@ -40,7 +40,7 @@ protected:
 	 * @see saveAs()
 	 * @return True is the file is saved successfully and false if not
 	*/
-	virtual bool save()=0;
+	virtual bool save() = 0;
 
 	/**
 	* New command
@@ -53,7 +53,7 @@ protected:
 	 * @brief With this function we can save the file to a selected location
 	 * @return True is the file is saved successfully and false if not
 	*/
-	virtual bool saveAs(const char* fileLocation)=0;
+	virtual bool saveAs(const char* fileLocation) = 0;
 
 	/**
 	* Function for exiting the programs

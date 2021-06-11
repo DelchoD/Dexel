@@ -31,7 +31,7 @@ std::string lowerred(const char* _stringToLower);
  * @return True if the cell is edited successfully and false if not
 */
 
-bool readForEdit(const char* str, int& row, int& column,int& endRef);
+bool readForEdit(const char* str, int& row, int& column, int& endRef);
 /**
 * Function validating symbol as a operator in the terms of the project
  * @brief With this function we can validate if the selected symbol is an operator

@@ -10,7 +10,6 @@ class Cell : public CellInterface
 {
 protected:
 	char* cellContent;/**<variable for storing the information as a char pointer */
-public:
 	/**
 	* Cell default constructor
 	 * @brief This is the default constructor for Cell
@@ -84,7 +83,7 @@ public:
 	virtual Cell* copyCell() = 0;
 
 	/**
-	* Default virtual destructor 
+	* Default virtual destructor
 	 * @brief Used to delete the data allocated on the heap ,in our case the content of the cell
 	*/
 	virtual ~Cell();
