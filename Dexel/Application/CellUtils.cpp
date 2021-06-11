@@ -46,63 +46,6 @@ TypeOfCell findCellType(char* _cellContent)
 	return TypeOfCell::Unknown;
 }
 
-std::string trim(std::string trimmedValue)
-{
-	std::size_t startPos = trimmedValue.find_first_not_of(" \t"); //should it be(" \t\n\v")
-	std::size_t finalPos = trimmedValue.find_last_not_of(" \t"); //should it be(" \t\n\v")
-
-	if (startPos == std::string::npos || finalPos == std::string::npos)
-	{
-		return "";
-	}
-
-	return trimmedValue.substr(startPos, finalPos - startPos + 1);
-}
-
-int parseInt(char* valueToExamine, int* len)
-{
-	size_t index = 0;
-	bool sign = valueToExamine[0] != '-';
-	int number = 0;
-
-	index = (valueToExamine[0] == '-' || valueToExamine[0] == '+') ? 1 : 0;
-	for (index; valueToExamine[index] != '\0'; index++) 
-	{
-		number *= 10;
-		number += valueToExamine[index] - '0';
-	}
-
-	return sign ? number : -number;
-}
-
-double parseDouble(char* valueToExamine, int* len)
-{
-	size_t index = 0;
-	bool sign = valueToExamine[0] != '-';
-	double number = 0;
-	int exp = 1;
-	bool afterDecimalPoint = false;
-
-	index = (valueToExamine[0] == '-' || valueToExamine[0] == '+') ? 1 : 0;
-	for (index; valueToExamine[index] != '\0'; index++) 
-	{
-		if (valueToExamine[index] == '.') 
-		{
-			afterDecimalPoint = true;
-		}
-		else 
-		{
-			number *= 10;
-			number += valueToExamine[index] - '0';
-			if (afterDecimalPoint) 
-			{
-				exp *= 10;
-			}
-		}
-	}
-
-	return sign ? number / exp : -(number / exp);
-}
 
 bool isDigit(char symbol)
 {

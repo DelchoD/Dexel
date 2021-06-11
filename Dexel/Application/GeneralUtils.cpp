@@ -1,5 +1,5 @@
 #include "GeneralUtils.h"
-
+#include "CellUtils.h"
 char converToLower(char symbol)
 {
     if (symbol <= 'Z' && symbol >= 'A')
@@ -55,7 +55,7 @@ bool readForEdit(const char* editionValues, int& row, int& column, int& endRef)
 	int lengthOfNumber = 0;
 	index++;
 
-	while (IsNumber(editionValues[index]))
+	while (isDigit(editionValues[index]))
 	{
 		rowT = (rowT * 10);
 		rowT += editionValues[index] - '0';
@@ -76,16 +76,9 @@ bool isOperator(char symbol)
 
 bool IsTableRowIndex(char symbol)
 {
-	if ((symbol>='a'&&symbol<='z')||(symbol >= 'A' && symbol <= 'Z'))
-	{
-		return true;
-	}
+	return ((symbol >= 'a' && symbol <= 'z') || (symbol >= 'A' && symbol <= 'Z'));
 }
 
-bool IsNumber(char symbol)
-{
-	return (symbol >= '0' && symbol <= '9');
-}
 
 bool isConvertable(const char* valueToExamine)
 {
@@ -93,7 +86,7 @@ bool isConvertable(const char* valueToExamine)
 	
 	std::strtod(valueToExamine, &endptr);
 
-	if (*endptr != '\0' || endptr == valueToExamine)
-		return false;
-	return true;
+	
+	return (!(*endptr != '\0' || endptr == valueToExamine));
+	//todo
 }

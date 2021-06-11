@@ -13,6 +13,7 @@ enum class TypeOfCell
 	Formula,/**< Formula type representing a formula type cell */
 	Empty/**< Empty type representing an empty cell */
 };
+
 /**
 * Function for determining a cell type
  * @brief By this function we can determine the type of a cell by given string
@@ -20,29 +21,7 @@ enum class TypeOfCell
  * @return Object from type TypeOfCell
 */
 TypeOfCell findCellType(char* _cellContent);
-/**
-* Function for removing the white spaces
- * @brief With this function we can remove the whitespaces at the end int the begging
- * @param trimmedValue 
- * @return 
-*/
-std::string trim(std::string trimmedValue);
-/**
-* Function for reading int cell
- * @brief By this function we can read int from a string
- * @param valueToExamine String which we are going to use for parsing
- * @param len Length of the string used after to jump ahead
- * @return An int value of the sting in the valueToExamine
-*/
-int parseInt(char* valueToExamine, int* len=nullptr);
-/**
-* Function for reading double cell
- * @brief By this function we can read double from a string
- * @param valueToExamine String which we are going to use for parsing
- * @param len Length of the string used after to jump ahead
- * @return An Double value of the sting in the valueToExamine
-*/
-double parseDouble(char* valueToExamine, int* len=nullptr);
+
 /**
 * Function for validating symbol as a digit
  * @brief With this function we can check if a symbol is a numeric(0-9)
