@@ -22,12 +22,14 @@ public:
 	 * @param transfer Used table reference
 	*/
 	FormulaCell(const char* _cellContent, const TableInterface* transfer);
+
 	/**
 	* Virtual function to examine a cell
 	 * @brief By this function we can see it's type approximately
 	 * @return The cell content casted to double
 	*/
 	virtual double examine()const;
+
 	/**
 	* Function for reading formula from a string
 	 * @brief With this function we can read the content of the cell in which is the formula and split it into small pieces-references or constants
@@ -37,12 +39,14 @@ public:
 	 * @param colIndex Index of the column which is pointed by the reference if exists
 	*/
 	void readCell(const char* string, int& end, int& rowIndex, int& colIndex);
+
 	/**
 	* Virtual function for writing in files
 	 * @brief By this function we can save the content of the cell to a type of fstream stream
 	 * @param writer The stream which we are going to use
 	*/
 	virtual void writeToFile(std::fstream& writer)const;
+
 	/**
 	* Fucntion for reading constants in a formulas
 	 * @brief With this function we can read constants in the formula
@@ -51,6 +55,7 @@ public:
 	 * @return Double value of the constant
 	*/
 	double readConstant(const char* reader, int& end) const;
+
 	/**
 	* Function for getting a cell to search for
 	 * @brief With this function we can get a cell reference and search it in the table
@@ -59,12 +64,14 @@ public:
 	 * @return Pointer to the content of the cell
 	*/
 	CellInterface* getCell(int rowIndex, int columnIndex) const;
+
 	/**
 	* Virtual function for printing the cell
 	 * @brief By this function we can print the content to the cell to the default std::cout stream
 	 * @param cellWidth Width if the cell, which is used for aligning later
 	*/
 	virtual void print(int cellWidth) const;
+
 	/**
 	* Virtual function for copying a cell
 	 * @brief By this function we can copy one cell to another not in the way to make new object

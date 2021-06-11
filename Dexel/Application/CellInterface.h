@@ -12,6 +12,7 @@ public:
 	 * @return The cell content casted to double
 	*/
 	virtual double examine() const = 0;
+
 	/**
 	* Virtual function for getting the length of the cell content
 	 * @brief By this function we can get the length of the cell, no matter it's type

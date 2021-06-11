@@ -19,6 +19,7 @@ protected:
 	 * @brief This is the default constructor for Commands
 	*/
 	Commands();
+
 	/**
 	* Virtual unction for opening file
 	 * @brief With this function we can open file form the selected path
@@ -26,11 +27,13 @@ protected:
 	 * @return True is the file is opened successfully and false if not
 	*/
 	virtual bool open(const char* fileLocation);
+
 	/**
 	* Virtual function for closing file
 	 * @brief With this function we can close a file, if was not closed yet
 	*/
 	virtual void close();
+
 	/**
 	* virtual function for saving a file
 	 * @brief With this function we can save the file to the current location
@@ -38,23 +41,32 @@ protected:
 	 * @return True is the file is saved successfully and false if not
 	*/
 	virtual bool save()=0;
+
+	/**
+	* New command
+	 * @brief With this command you can create an empty table with no file associated with it
+	*/
 	virtual void newCommand();
+
 	/**
 	* virtual function for saving a file to a new location or name
 	 * @brief With this function we can save the file to a selected location
 	 * @return True is the file is saved successfully and false if not
 	*/
 	virtual bool saveAs(const char* fileLocation)=0;
+
 	/**
 	* Function for exiting the programs
 	 * @brief With this function we terminate the program by prompting a save message
 	*/
 	void exit();
+
 	/**
 	* Function help
 	 * @brief This function shows the available command supported by the CLI
 	*/
 	void help();
+
 	/**
 	* Function for executing commands
 	 * @brief With this function we can execute commands
@@ -63,11 +75,13 @@ protected:
 	 * @return True if the command is executed successful and false if not
 	*/
 	virtual bool parseRead(const char* command, const char* arguments);
+
 	/**
 	* Default virtual destructor
 	 * @brief Used to delete the data allocated on the heap ,in our case the content of the location of the file
 	*/
 	virtual ~Commands();
+
 public:
 	/**
 	* Function for reading commands

@@ -11,6 +11,7 @@
  * @see lowerred(const char* _stringToLower)
 */
 char converToLower(char symbol);
+
 /**
 * Function for lowering a string
  * @brief With this function we can lower a string

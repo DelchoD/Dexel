@@ -15,6 +15,7 @@ public:
 	 * @return Pointer to the desired cell
 	*/
 	virtual CellInterface* getCell(int row, int col) const = 0;
+
 	/**
 	* Function for getting the length of a column
 	 * @brief With this function we can get the size of each column in order they to be ordered in the print
