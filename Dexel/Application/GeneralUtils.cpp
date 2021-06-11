@@ -11,6 +11,7 @@ char converToLower(char symbol)
         return symbol;
     }
 }
+
 std::string lowerred(const char* _stringToLower)
 {
 	std::string stringToLower = _stringToLower;
@@ -20,17 +21,21 @@ std::string lowerred(const char* _stringToLower)
 	}
 	return stringToLower;
 }
+
 bool readForEdit(const char* editionValues, int& row, int& column, int& endRef)
 {
 	int index = 0;
 	for (index; editionValues[index] == ' '; ++index);
 	bool sign = true;
+
 	if (editionValues[index] == '-')
 	{
 		++index;
 		sign = false;
 	}
+
 	int columnT{}, rowT{};
+
 	if (IsTableRowIndex(editionValues[index]))
 	{
 		if (editionValues[index] >= 'a' && editionValues[index] <= 'z')
@@ -46,6 +51,7 @@ bool readForEdit(const char* editionValues, int& row, int& column, int& endRef)
 	{
 		return false;
 	}
+
 	int lengthOfNumber = 0;
 	index++;
 
@@ -56,6 +62,7 @@ bool readForEdit(const char* editionValues, int& row, int& column, int& endRef)
 		lengthOfNumber++;
 		index++;
 	}
+
 	row = rowT;
 	column = columnT;
 	endRef = lengthOfNumber+1;
@@ -74,7 +81,19 @@ bool IsTableRowIndex(char symbol)
 		return true;
 	}
 }
+
 bool IsNumber(char symbol)
 {
-	return (symbol >= '1' && symbol <= '9');
+	return (symbol >= '0' && symbol <= '9');
+}
+
+bool isConvertable(const char* valueToExamine)
+{
+	char* endptr = 0;
+	
+	std::strtod(valueToExamine, &endptr);
+
+	if (*endptr != '\0' || endptr == valueToExamine)
+		return false;
+	return true;
 }

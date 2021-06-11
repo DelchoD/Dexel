@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <stdlib.h>
 #include "CellUtils.h"
 /**
 * Function for replacing capital letters with small ones
@@ -48,3 +49,10 @@ bool IsTableRowIndex(char symbol);
  * @return True if the selected symbol is a numeric and false if not
 */
 bool IsNumber(char symbol);
+/**
+* Function validating sating as a number
+ * @brief With this function we can validate if the chosen string can be parsed to int or double
+ * @param valueToExamine string which we are going to examine
+ * @return True if the selected string is a number and false if not
+*/
+bool isConvertable(const char* valueToExamine);
