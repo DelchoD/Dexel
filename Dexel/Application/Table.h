@@ -79,6 +79,12 @@ public:
 	 * @return True is there is nothing in the table and false if not
 	*/
 	bool isEmpty();
-
+	/**
+	* Function for resizing the number of rows
+	 * @brief With this function we can resize the number of row in order to edit cell outside the current table
+	 * @param rowsTotal Number of rows to be at the end
+	 * @param columnTotal Number of columns to be at the end
+	*/
+	void resize(int rowsTotal, int columnTotal);
 };
 

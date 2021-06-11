@@ -24,7 +24,6 @@ bool Row::readRow(const char *source, char *buffer, int* length) const
 
 	buffer[index] = '\0';
 	*length = source[index] == ',' ? (int)(index + 1) : (int)(index);
-	//*length = (int)(++index);
 
 	return true;
 }
@@ -38,6 +37,7 @@ Row::Row(char *rowValue, TableInterface* _transfer):transfer(_transfer)
 	char* rowParser = rowValue;
 	char buffer[1024];
 	int offset = 0;
+
 	while (readRow(rowParser, buffer, &offset)) 
 	{
 		rowParser += offset;
@@ -146,5 +146,14 @@ Cell* Row::createCell(const char *cellCont) const
 		
 	default:
 		break;
+	}
+}
+
+void Row::resize(int columnTotal)
+{
+	cellsPerRow.resize(columnTotal);
+	for (size_t i = cellsPerRow.size()-1-columnTotal; i < cellsPerRow.size(); i++)
+	{
+		cellsPerRow[i] = createCell("");
 	}
 }

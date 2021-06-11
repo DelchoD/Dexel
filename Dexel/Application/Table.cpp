@@ -36,6 +36,7 @@ void Table::setColumnWidth()
 		}
 	}
 }
+
 void Table::print() const
 {
 	int maxRowLen = getMaximunCellsPerRow();
@@ -128,4 +129,13 @@ int Table::getMaximunCellsPerRow() const
 bool Table::isEmpty()
 {
 	return tableRows.empty();
+}
+
+void Table::resize(int rowsTotal, int columnTotal)
+{
+	tableRows.resize(rowsTotal);
+	for (size_t i = 0; i < tableRows.size(); i++)
+	{
+		tableRows.at(i).resize(columnTotal);
+	}
 }

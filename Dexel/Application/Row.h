@@ -90,6 +90,6 @@ public:
 	 * @param _cellEditedContent New content of the selected cell 
 	*/
 	void setCell(int columnIndex, const char *_cellEditedContent);
-	
+	void resize(int columnTotal);
 };
 
