@@ -17,28 +17,28 @@ TypeOfCell findCellType(char* _cellContent)
 	{
 		return TypeOfCell::Empty; //alternatively add Empty
 	}
-	else if (*temp=='\"')
+	else if (*temp == '\"')
 	{
 		return TypeOfCell::String;
 	}
 	size_t index = ((temp[0] == '-' || temp[0] == '+') && temp[1] != '\0' && isDigit(temp[1])) ? 1 : 0;
-	
-	for (index; temp[index] != '\0' && (isDigit(temp[index]) || temp[index] == '.'); ++index) 
+
+	for (index; temp[index] != '\0' && (isDigit(temp[index]) || temp[index] == '.'); ++index)
 	{
-		if (temp[index] == '.') 
+		if (temp[index] == '.')
 		{
 			integer ? integer = false : doubles = false;
 		}
 	}
 
 	for (; temp[index] == ' '; ++index);
-	if (temp[index] == '\0') 
+	if (temp[index] == '\0')
 	{
-		if (integer) 
+		if (integer)
 		{
 			return TypeOfCell::Integer;
 		}
-		else if (doubles) 
+		else if (doubles)
 		{
 			return TypeOfCell::Double;
 		}

@@ -3,7 +3,7 @@
 
 bool TableCommands::parseRead(const char* command, const char* arguments)
 {
-	if (strcmp(command,"print")==0)
+	if (strcmp(command, "print") == 0)
 	{
 		if (!table.isEmpty())
 		{
@@ -14,7 +14,7 @@ bool TableCommands::parseRead(const char* command, const char* arguments)
 			std::cout << "There is no table loaded in the program\n";
 		}
 	}
-	else if (strcmp(command, "edit")==0)
+	else if (strcmp(command, "edit") == 0)
 	{
 
 		this->edit(arguments);
@@ -32,7 +32,7 @@ bool TableCommands::parseRead(const char* command, const char* arguments)
 
 bool TableCommands::open(const char* fileLocation)
 {
-	if (!table.isEmpty())
+	if (!table.isEmpty()) //checking if the a file is loaded
 	{
 		std::cout << "There is another file opened, do you want to save the changes up to the moment?\n";
 		std::cout << "Enter yes or no: ";
@@ -66,7 +66,7 @@ bool TableCommands::open(const char* fileLocation)
 
 bool TableCommands::save()
 {
-	if (!saveAs(activeFilePath)) 
+	if (!saveAs(activeFilePath))
 	{
 		return false;
 	}
@@ -77,7 +77,7 @@ bool TableCommands::save()
 
 void TableCommands::newCommand()
 {
-	return table.restart();
+	table.restart();
 }
 
 bool TableCommands::saveAs(const char* fileLocation)
@@ -94,7 +94,7 @@ bool TableCommands::saveAs(const char* fileLocation)
 
 	CSVWriter(tempFile);
 	tempFile.close();
-	std::cout << "The table is successfully saved to " << fileLocation<<"\n";
+	std::cout << "The table is successfully saved to " << fileLocation << "\n";
 	return true;
 }
 
@@ -110,6 +110,7 @@ void TableCommands::edit(const char* editionParameters)
 	for (endOfReference; editionParameters[endOfReference] == ' '; ++endOfReference);
 	const char* newContent = editionParameters + endOfReference;
 
+	//trying to edit existing cell if it does not existing we resize the table to create it
 	try
 	{
 		table.edit(row - 1, col - 1, newContent);
@@ -120,7 +121,6 @@ void TableCommands::edit(const char* editionParameters)
 	{
 		table.resize(row, col);
 		table.edit(row - 1, col - 1, newContent);
-		//Commands::parsingFromFile();
 	}
 	catch (const std::invalid_argument& e)
 	{

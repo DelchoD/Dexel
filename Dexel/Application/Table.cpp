@@ -6,12 +6,13 @@
 #include <iomanip>
 void Table::setColumnWidth()
 {
+	//getting the row with most cell
 	int maxRowLen = getMaximunCellsPerRow();
 
 	for (int i = 0; i < tableRows.size(); i++)
 	{
 		int rowCells = tableRows[i].getNumberOfCellsPerRow();
-		if (maxRowLen < rowCells) 
+		if (maxRowLen < rowCells)
 		{
 			maxRowLen = rowCells;
 		}
@@ -19,7 +20,7 @@ void Table::setColumnWidth()
 
 	columnWidths = std::vector<int>(maxRowLen);
 
-	for (int i = 0; i < maxRowLen; i++) 
+	for (int i = 0; i < maxRowLen; i++)
 	{
 		columnWidths.push_back(0);
 	}
@@ -29,7 +30,7 @@ void Table::setColumnWidth()
 		for (int j = 0; j < tableRows[i].getNumberOfCellsPerRow(); j++)
 		{
 			int cellStrLen = getCell(i, j)->getCellLength();
-			if (columnWidths[j] < cellStrLen) 
+			if (columnWidths[j] < cellStrLen)
 			{
 				columnWidths[j] = cellStrLen;
 			}
@@ -43,9 +44,10 @@ void Table::print()
 	setColumnWidth();
 	for (size_t i = 0; i <= maxRowLen; i++)
 	{
-		if (i<maxRowLen)
+		//Printing the column indexes
+		if (i < maxRowLen)
 		{
-			std::cout << "  |" << (char)('A' + i) << std::setw(columnWidths[i]+1) ;
+			std::cout << "  |" << (char)('A' + i) << std::setw(columnWidths[i] + 1);
 		}
 		else
 		{
@@ -54,6 +56,7 @@ void Table::print()
 	}
 
 	std::cout << "\n";
+	//Printing the rows
 	for (size_t i = 0; i < tableRows.size(); i++)
 	{
 		std::cout << (i + 1) << " |";
@@ -89,7 +92,7 @@ CellInterface* Table::getCell(int rowIndex, int columnIndex) const
 bool Table::parseFromFile(std::istream& reader)  //can convert from fstream to istream
 {
 	char temp[1024]{};
-	while (reader.getline(temp,(std::streamsize)1024))
+	while (reader.getline(temp, (std::streamsize)1024))
 	{
 		try
 		{
@@ -97,7 +100,7 @@ bool Table::parseFromFile(std::istream& reader)  //can convert from fstream to i
 		}
 		catch (const std::invalid_argument& e)
 		{
-			std::cout <<"There is a problem with the input data on row " << (tableRows.size() + 1)<<" - it is not supported data type" << "\n";
+			std::cout << "There is a problem with the input data on row " << (tableRows.size() + 1) << " - it is not supported data type" << "\n";
 			Table::restart();
 			return false;
 		}

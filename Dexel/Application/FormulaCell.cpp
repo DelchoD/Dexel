@@ -5,17 +5,17 @@
 #include <iomanip>
 #include <fstream>
 FormulaCell::FormulaCell(const char* _cellContent, const TableInterface* transfer)
-	: Cell(_cellContent), tabletranfer(transfer),rowFirstCell(-1),columnFirstCell(-1),rowSecondCell(-1),columnSecondCell(-1), constantOne(0),constantTwo(0)
+	: Cell(_cellContent), tabletranfer(transfer), rowFirstCell(-1), columnFirstCell(-1), rowSecondCell(-1), columnSecondCell(-1), constantOne(0), constantTwo(0)
 {
-	char* parser = cellContent+1;
-	
+	char* parser = cellContent + 1;
+	//read first part
 	int end = 0;
 	for (parser; *parser == ' '; ++parser);
 	if (((*parser) >= 'a' && (*parser) <= 'z') || ((*parser) >= 'A' && (*parser) <= 'Z'))
 	{
 		readCell(parser, end, rowFirstCell, columnFirstCell);
 	}
-	else 
+	else
 	{
 		constantOne = readConstant(parser, end);
 	}
@@ -24,9 +24,9 @@ FormulaCell::FormulaCell(const char* _cellContent, const TableInterface* transfe
 
 	for (parser; !isOperator(*parser); parser++);
 	sign = *parser;
-
+	//read second part
 	for (++parser; *parser == ' '; ++parser);//implement with excel like reference
-	if (((*parser) >= 'a' && (*parser)<='z')||( (*parser) >= 'A' && (*parser) <= 'Z'))
+	if (((*parser) >= 'a' && (*parser) <= 'z') || ((*parser) >= 'A' && (*parser) <= 'Z'))
 	{
 		readCell(parser, end, rowSecondCell, columnSecondCell);
 	}
@@ -42,8 +42,8 @@ double FormulaCell::examine()const
 	double operand1 = (cellOne != nullptr) ? cellOne->examine() : constantOne;
 	CellInterface* cellTwo = getCell(rowSecondCell, columnSecondCell);
 	double operand2 = (cellTwo != nullptr) ? cellTwo->examine() : constantTwo;
-	
-	switch (sign) 
+
+	switch (sign)
 	{
 	case '+':
 		return operand1 + operand2;
@@ -67,7 +67,7 @@ void FormulaCell::readCell(const char* string, int& end, int& rowIndex, int& col
 	int row = 0, col = 0;
 	int index = 0;
 
-	if (string[index]>='A'&&string[index]<='Z')
+	if (string[index] >= 'A' && string[index] <= 'Z')
 	{
 		col = string[index] - '@';
 	}
@@ -76,13 +76,13 @@ void FormulaCell::readCell(const char* string, int& end, int& rowIndex, int& col
 		col = string[index] - '`';
 	}
 
-	for (++index; isDigit(string[index]) && string[index] != '\0'; index++) 
+	for (++index; isDigit(string[index]) && string[index] != '\0'; index++)
 	{
 		row *= 10;
 		row += string[index] - '0';
 	}
-	rowIndex = row-1;
-	columnIndex = col-1;
+	rowIndex = row - 1;
+	columnIndex = col - 1;
 	end = index;
 }
 
@@ -95,7 +95,7 @@ void FormulaCell::writeToFile(std::fstream& writer) const
 	{
 		writer << "#ERROR";
 	}
-	else 
+	else
 	{
 		writer << examine();
 	}
@@ -106,23 +106,23 @@ double FormulaCell::readConstant(const char* parser, int& end) const
 	char buffer[1024];
 	size_t index = 0;
 
-	for (index; parser[index] != '\0' &&(index==0|| !isOperator(parser[index])); index++)
+	for (index; parser[index] != '\0' && (index == 0 || !isOperator(parser[index])); index++)
 	{
 		buffer[index] = parser[index];
 	}
 	buffer[index] = '\0';
 	end = index - 1;
 
-	switch (findCellType(buffer)) 
+	switch (findCellType(buffer))
 	{
 	case TypeOfCell::Integer:
 		for (index = 0; buffer[index] != ' ' && buffer[index] != '\0'; ++index);
 		buffer[index] = '\0';
-		return parseInt(buffer);
+		return atof(buffer);
 	case TypeOfCell::Double:
 		for (index = 0; buffer[index] != ' ' && buffer[index] != '\0'; ++index);
 		buffer[index] = '\0';
-		return parseDouble(buffer);
+		return atoi(buffer);
 	case TypeOfCell::String:
 		return 0;
 	case TypeOfCell::Formula:
@@ -137,14 +137,14 @@ CellInterface* FormulaCell::getCell(int rowIndex, int columnIndex) const
 
 void FormulaCell::print(int cellWidth)const
 {
-	CellInterface* cellTwo = getCell(rowSecondCell,columnSecondCell);
+	CellInterface* cellTwo = getCell(rowSecondCell, columnSecondCell);
 	double checkFornullptr = (cellTwo != nullptr) ? cellTwo->examine() : constantTwo;
 
 	if (sign == '/' && checkFornullptr == 0)
 	{
 		std::cout << std::setw(cellWidth) << "#ERROR";
 	}
-	else 
+	else
 	{
 		std::cout << std::setw(cellWidth) << examine();
 	}

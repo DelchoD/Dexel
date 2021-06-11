@@ -2,22 +2,26 @@
 #include<iostream>
 #include <fstream>
 #include <iomanip>
-Cell::Cell():cellContent(nullptr) {
+Cell::Cell() :cellContent(nullptr)
+{
 }
 
-Cell::Cell(const char* _cellContent) : cellContent(nullptr) {
+Cell::Cell(const char* _cellContent) : cellContent(nullptr)
+{
 	cellContent = new char[strlen(_cellContent) + 1];
 	strcpy(cellContent, _cellContent);
 }
 
-Cell::Cell(const Cell& rhs) : cellContent(nullptr) {
+Cell::Cell(const Cell& rhs) : cellContent(nullptr)
+{
 	cellContent = new char[strlen(rhs.cellContent) + 1];
 	strcpy(cellContent, rhs.cellContent);
 }
 
 Cell& Cell::operator=(Cell& rhs)
 {
-	if (this != &rhs) {
+	if (this != &rhs)
+	{
 		delete cellContent;
 		cellContent = new char[strlen(rhs.cellContent) + 1];
 		strcpy(cellContent, rhs.cellContent);

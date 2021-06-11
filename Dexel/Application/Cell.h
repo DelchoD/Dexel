@@ -14,6 +14,7 @@ protected:
 	* Cell default constructor
 	 * @brief This is the default constructor for Cell
 	*/
+public:
 	Cell();
 
 	/**

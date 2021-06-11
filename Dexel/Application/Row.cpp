@@ -8,11 +8,11 @@
 
 #include <fstream>
 #include <cstring>
-bool Row::readRow(const char *source, char *buffer, int* length) const
+bool Row::readRow(const char* source, char* buffer, int* length) const
 {
 	size_t index = 0;
 
-	if (*source == '\0') 
+	if (*source == '\0')
 	{
 		return false;
 	}
@@ -28,17 +28,17 @@ bool Row::readRow(const char *source, char *buffer, int* length) const
 	return true;
 }
 
-Row::Row():transfer(nullptr)
+Row::Row() :transfer(nullptr)
 {
 }
 
-Row::Row(char *rowValue, TableInterface* _transfer):transfer(_transfer)
+Row::Row(char* rowValue, TableInterface* _transfer) : transfer(_transfer)
 {
 	char* rowParser = rowValue;
 	char buffer[1024];
 	int offset = 0;
 
-	while (readRow(rowParser, buffer, &offset)) 
+	while (readRow(rowParser, buffer, &offset))
 	{
 		rowParser += offset;
 		Cell* newCell = createCell(buffer);
@@ -46,7 +46,7 @@ Row::Row(char *rowValue, TableInterface* _transfer):transfer(_transfer)
 	}
 }
 
-Row::Row(const Row& rhs):transfer(rhs.transfer)
+Row::Row(const Row& rhs) :transfer(rhs.transfer)
 {
 	cellsPerRow = rhs.cellsPerRow;
 	for (size_t i = 0; i < cellsPerRow.size(); i++)
@@ -86,7 +86,7 @@ void Row::print() const
 {
 	for (size_t i = 0; i <= cellsPerRow.size(); i++)
 	{
-		if (i==cellsPerRow.size())
+		if (i == cellsPerRow.size())
 		{
 			std::cout << " |";
 			break;
@@ -104,7 +104,7 @@ void Row::print() const
 		{
 			cellsPerRow[i]->print(transfer->getColumnWidth((int)i));
 		}
-		
+
 	}
 	std::cout << "\n";
 }
@@ -118,22 +118,22 @@ void Row::writeToFile(std::fstream& writer) const
 {
 	for (size_t i = 0; i < cellsPerRow.size(); i++)
 	{
-		if (i!=0)
+		if (i != 0)
 		{
-			writer<< ", ";
+			writer << ", ";
 		}
 		cellsPerRow[i]->writeToFile(writer);
 	}
 }
 
-void Row::setCell(int columnIndex, const char *_cellEditedContent)
+void Row::setCell(int columnIndex, const char* _cellEditedContent)
 {
 	cellsPerRow[columnIndex] = createCell(_cellEditedContent);
 }
 
-Cell* Row::createCell(const char *cellCont) const
+Cell* Row::createCell(const char* cellCont) const
 {
-	char* parser=const_cast<char*>(cellCont);
+	char* parser = const_cast<char*>(cellCont);
 
 	for (; *parser == ' '; ++parser);
 
@@ -147,12 +147,11 @@ Cell* Row::createCell(const char *cellCont) const
 	case TypeOfCell::String:
 		return new StringCell(parser);
 	case TypeOfCell::Formula:
-		return new FormulaCell(parser,transfer);
+		return new FormulaCell(parser, transfer);
 	case TypeOfCell::Empty:
 		return new StringCell(parser);
 	case TypeOfCell::Unknown:
 		throw std::invalid_argument("");
-		
 	default:
 		break;
 	}
@@ -162,7 +161,9 @@ void Row::resize(int columnTotal)
 {
 	size_t oldSize = cellsPerRow.size();
 	cellsPerRow.resize(columnTotal);
+
 	size_t i = (oldSize) ? (cellsPerRow.size() - oldSize + 1) : 0;
+
 	for (i; i < cellsPerRow.size(); i++)
 	{
 		cellsPerRow[i] = createCell("");

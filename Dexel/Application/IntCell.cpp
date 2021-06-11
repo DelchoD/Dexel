@@ -1,12 +1,8 @@
 #include "IntCell.h"
 #include <fstream>
-IntCell::IntCell(const char* _cellContent):Cell(_cellContent)
+IntCell::IntCell(const char* _cellContent) :Cell(_cellContent)
 {
 	size_t index = 0;
-	/*for (cellContent; cellContent[index] != ' ' && cellContent[index] != '\0'; ++cellContent);
-	cellContent[index] = '\0';*/
-
-	//cellValueAsInt = parseInt(cellContent);
 	cellValueAsInt = atoi(cellContent);
 }
 
