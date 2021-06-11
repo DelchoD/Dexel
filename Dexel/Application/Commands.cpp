@@ -100,7 +100,6 @@ bool Commands::parseRead(const char* command, const char* arguments)
 
 Commands::~Commands()
 {
-	//delete[] activeFilePath;
 	if (isFileOpened)
 	{
 		close();
@@ -127,6 +126,10 @@ void Commands::parsingFromFile()
 			(strcmp(command, "save") == 0) || (strcmp(command, "exit") == 0) || (strcmp(command, "new") == 0)))
 		{
 			arguments[0]='\0';
+			if (!parseRead(command, arguments))
+			{
+				std::cout << "The program encountered an unexpected error and your system is trying to resolve it\n";
+			}
 		}
 		else if(((strcmp(command, "open") == 0) || (strcmp(command, "saveas") == 0) || (strcmp(command, "edit") == 0)))
 		{
@@ -141,11 +144,15 @@ void Commands::parsingFromFile()
 				}
 				arguments[i - 2] = '\0';
 			}
+			if (!parseRead(command, arguments))
+			{
+				std::cout << "The program encountered an unexpected error and your system is trying to resolve it\n";
+			}
 		}
-		
-		if (!parseRead(command, arguments))
+		else
 		{
 			std::cout << "The command you have entered is not supported yet, to find commands compatible with this version type help\n";
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		}
 	}
 
