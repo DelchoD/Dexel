@@ -33,7 +33,7 @@ void Cell::writeToFile(std::fstream& writer) const
 
 void Cell::print(int cellWidth) const
 {
-	std::cout <<std::setw(cellWidth)<< cellContent;
+	std::cout << std::setw(cellWidth) << cellContent;
 }
 
 int Cell::getCellLength() const

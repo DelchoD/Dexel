@@ -37,10 +37,10 @@ void Table::setColumnWidth()
 	}
 }
 
-void Table::print() const
+void Table::print()
 {
 	int maxRowLen = getMaximunCellsPerRow();
-
+	setColumnWidth();
 	for (size_t i = 0; i <= maxRowLen; i++)
 	{
 		if (i<maxRowLen)
@@ -144,6 +144,6 @@ void Table::resize(int rowsTotal, int columnTotal)
 			tableRows.at(i).setTransfer(tableRows.at(i - 1).getTransfer());
 			tableRows.at(i).resize(columnTotal);
 		}
-		
 	}
+	setColumnWidth();
 }

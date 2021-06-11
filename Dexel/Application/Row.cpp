@@ -95,7 +95,16 @@ void Row::print() const
 		{
 			std::cout << " |";
 		}
-		cellsPerRow[i]->print(transfer->getColumnWidth((int)i));
+		if (!(transfer->getColumnWidth((int)i)))
+		{
+			std::cout << "  ";
+			cellsPerRow[i]->print(transfer->getColumnWidth((int)i));
+		}
+		else
+		{
+			cellsPerRow[i]->print(transfer->getColumnWidth((int)i));
+		}
+		
 	}
 	std::cout << "\n";
 }
@@ -151,12 +160,12 @@ Cell* Row::createCell(const char *cellCont) const
 
 void Row::resize(int columnTotal)
 {
-	int oldSize = cellsPerRow.size();
+	size_t oldSize = cellsPerRow.size();
 	cellsPerRow.resize(columnTotal);
 	size_t i = (oldSize) ? (cellsPerRow.size() - oldSize + 1) : 0;
 	for (i; i < cellsPerRow.size(); i++)
 	{
-		cellsPerRow[i] = createCell(" ");
+		cellsPerRow[i] = createCell("");
 	}
 }
 

@@ -3,7 +3,6 @@
 
 bool TableCommands::parseRead(const char* command, const char* arguments)
 {
-
 	if (strcmp(command,"print")==0)
 	{
 		if (!table.isEmpty())
@@ -29,7 +28,6 @@ bool TableCommands::parseRead(const char* command, const char* arguments)
 		return Commands::parseRead(command, arguments);
 	}
 	return true;
-
 }
 
 bool TableCommands::open(const char* fileLocation)
@@ -56,7 +54,7 @@ bool TableCommands::open(const char* fileLocation)
 	}
 	if (!CSVReader())
 	{
-		//std::cout << "There is a problem with reading the file\n";
+		table.restart();
 		return false;
 	}
 	if (!isRestarted)
@@ -64,12 +62,10 @@ bool TableCommands::open(const char* fileLocation)
 		std::cout << "Successfully opened " << fileLocation << "\n";
 	}
 	activeFile.close();
-	//return CSVReader();
 }
 
 bool TableCommands::save()
 {
-	//activeFile.close();
 	if (!saveAs(activeFilePath)) 
 	{
 		return false;
@@ -124,7 +120,6 @@ void TableCommands::edit(const char* editionParameters)
 	{
 		table.resize(row, col);
 		table.edit(row - 1, col - 1, newContent);
-		std::cout << "The cell can not be edited please check the row and column indexes and try again\n";
 		//Commands::parsingFromFile();
 	}
 	catch (const std::invalid_argument& e)

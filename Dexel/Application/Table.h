@@ -23,7 +23,7 @@ public:
 	* Printing table function
 	 * @brief With this function we can print the information stroed in the table
 	*/
-	void print()const;
+	void print();
 	/**
 	* Function for editing a cell
 	 * @brief With this function we can edit a cell by given arguments
