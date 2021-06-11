@@ -94,9 +94,10 @@ bool Table::parseFromFile(std::istream& reader)  //can convert from fstream to i
 		{
 			tableRows.push_back(Row(temp, this));
 		}
-		catch (const std::exception& e)
+		catch (const std::invalid_argument& e)
 		{
-			std::cout <<"There is a problem with the input data on row " << (tableRows.size() + 1)<<"\n";
+			std::cout <<"There is a problem with the input data on row " << (tableRows.size() + 1)<<" - it is not supported data type" << "\n";
+			Table::restart();
 			return false;
 		}
 		

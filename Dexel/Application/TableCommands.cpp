@@ -56,7 +56,7 @@ bool TableCommands::open(const char* fileLocation)
 	}
 	if (!CSVReader())
 	{
-		std::cout << "There is a problem with reading the file\n";
+		//std::cout << "There is a problem with reading the file\n";
 		return false;
 	}
 	if (!isRestarted)
@@ -124,6 +124,11 @@ void TableCommands::edit(const char* editionParameters)
 	{
 		std::cout << "The cell can not be edited please check the row and column indexes and try again\n";
 		Commands::parsingFromFile();
+	}
+	catch (const std::invalid_argument& e)
+	{
+		std::cout << "The value you want to change is not supported\n";
+		return;
 	}
 }
 
